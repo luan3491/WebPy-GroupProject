@@ -11,10 +11,9 @@ Wenn du das Projekt noch nicht auf deinem PC hast:
 
 ```bash
 git clone https://github.com/luan3491/WebPy-GroupProject.git
-cd NAME_DES_PROJEKTORDNERS
 ```
 
-Den Link bekommt man auf GitHub über **Code → HTTPS**.
+Oder über Github.
 
 ---
 
@@ -117,17 +116,7 @@ Wichtig: Der Pull Request soll von deinem Branch nach `main` gehen.
 
 ---
 
-## 8. Andere Person schaut drüber
-
-Mindestens eine andere Person aus der Gruppe soll den Pull Request anschauen.
-
-Wenn alles passt, gibt sie eine Approval-Freigabe.
-
-Erst danach wird der Pull Request in `main` gemerged.
-
----
-
-## 9. Nach dem Merge lokalen Stand aktualisieren
+## 8. Nach dem Merge lokalen Stand aktualisieren
 
 Nachdem der Pull Request gemerged wurde:
 
@@ -147,7 +136,6 @@ Danach kannst du für die nächste Aufgabe wieder einen neuen Branch erstellen.
 - Vor dem Arbeiten immer `git pull` auf `main` machen.
 - Änderungen mit verständlicher Commit-Nachricht committen.
 - Danach Branch pushen und Pull Request erstellen.
-- Mindestens eine andere Person schaut den Pull Request an.
 - Erst nach Approval in `main` mergen.
 
 ---
