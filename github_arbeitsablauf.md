@@ -32,33 +32,35 @@ So vermeidet man, auf einem alten Stand zu arbeiten.
 
 ## 3. Eigenen Branch erstellen
 
-Für jede Aufgabe oder Änderung wird ein eigener Branch erstellt:
+Jeder erstellt einen eigenen Branch auf dem er arbeitet:
 
 ```bash
-git checkout -b name-der-aenderung
+git checkout -b name-der-person
 ```
 
 Beispiele:
 
 ```bash
-git checkout -b login-fix
-git checkout -b kommentar-modell
-git checkout -b styling-homepage
+git checkout -b Luke
 ```
 
-Der Branch-Name sollte kurz beschreiben, woran du arbeitest.
+Sobald er erstellt ist ereicht iman den Branch mit
+
+```bash
+git checkout name-der-person
+```
+
+Beispiel:
+
+```bash
+git checkout Luke
+```
 
 ---
 
 ## 4. Dateien bearbeiten und speichern
 
 Jetzt kannst du normal im Projekt arbeiten.
-
-Danach prüfst du, welche Dateien geändert wurden:
-
-```bash
-git status
-```
 
 ---
 
