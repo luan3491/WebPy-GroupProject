@@ -44,7 +44,7 @@ Beispiele:
 git checkout -b Luke
 ```
 
-Sobald er erstellt ist ereicht iman den Branch mit
+Sobald er erstellt ist erreicht man den Branch mit:
 
 ```bash
 git checkout name-der-person
@@ -91,13 +91,13 @@ git commit -m "Update gitignore"
 ## 6. Branch zu GitHub hochladen
 
 ```bash
-git push -u origin name-der-aenderung
+git push -u origin name-der-person
 ```
 
 Beispiel:
 
 ```bash
-git push -u origin login-fix
+git push -u origin Luke
 ```
 
 ---
