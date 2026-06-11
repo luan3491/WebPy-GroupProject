@@ -44,6 +44,9 @@ Beispiele:
 git checkout -b login-fix
 git checkout -b kommentar-modell
 git checkout -b styling-homepage
+git checkout -b feature/homepage
+git checkout -b feature/login
+git checkout -b feature/user
 ```
 
 Der Branch-Name sollte kurz beschreiben, woran du arbeitest.
