@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <h1>Login</h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <p>Melde dich mit deinem Accountnamen an.</p>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        {% if next %}
+            <input type="hidden" name="next" value="{{ next }}">
+        {% endif %}
+
+        <button type="submit">Login</button>
+    </form>
+
+    <p>
+        Noch kein Konto?
+        <a href="{% url 'signup' %}">Signup</a>
+    </p>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Signup{% endblock %}
+
+{% block content %}
+    <h1>Signup</h1>
+
+    <p>
+        Aus deinem Anzeigenamen wird automatisch ein eindeutiger
+        Accountname mit vier Ziffern erstellt.
+    </p>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Signup</button>
+    </form>
+
+    <p>
+        Bereits registriert?
+        <a href="{% url 'login' %}">Login</a>
+    </p>
+{% endblock %}
