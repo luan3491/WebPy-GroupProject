@@ -20,12 +20,15 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.generic.base import TemplateView
 
+import ComputerGames
 
 urlpatterns = [
+    path('', TemplateView.as_view(template_name='homepage.html'), name='home'),
     path('admin/', admin.site.urls),
-    path('home/', TemplateView.as_view(template_name='homepage.html'), name='home'),
+    path('computergames/', TemplateView.as_view(template_name='computer_games_list.html'), name='computergames'),
     path('useradmin/', include('Useradmin.urls')),
     path('useradmin/', include('django.contrib.auth.urls')),
+    path('computergames/', include('ComputerGames.urls')),
 ]
 
 if settings.DEBUG:

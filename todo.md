@@ -1,0 +1,15 @@
+- [x] Login
+- [x] Signup
+- [ ] Games page (public tags, age requirements)
+- [ ] Review page (text+stars), edit+delete
+- [ ] Review edit page
+- [ ] Review upvote/downvote system (both counted seperately)
+- [ ] Commentary to reviews, edit+delete
+- [ ] Comment edit page
+- [ ] Customer support page
+- [ ] Warenkorb
+- [ ] Payment terminal
+- [ ] Super users
+- [ ] Library
+- [ ] Homepage
+- [ ] Styling
