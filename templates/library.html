@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css"
+      href="{% static 'style.css' %}">
+{% endblock %}
+{% block title %}Games Library{% endblock %}
+{% block content %}
+<h2>Your games:</h2>
+
+<ul>
+    {% for game in all_the_games %}
+        <li>
+            <a href="{% url 'game_detail_funbasvie' game.id %}">
+                <b>{{ game.name }}</b>
+            </a>
+            <br>
+
+            {% with first_image=game.images.first %}
+                {% if first_image %}
+                    <img src="{{ first_image.image.url }}"
+                         alt="{{ game.name }}"
+                         width="300">
+                {% endif %}
+            {% endwith %}
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
