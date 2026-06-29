@@ -7,7 +7,27 @@
     {% if user.is_authenticated %}
         <p>Hallo {{ user.display_name }}!</p>
         <p>Dein Accountname: {{ user.username }}</p>
+        <a href="{% url 'game_list_funbasvie' %}"> to your library</a>
+        <br>
+        <br>
+        <h2>Shop</h2>
 
+        {% for game in all_the_games %}
+            <div>
+                {% with first_image=game.images.first %}
+                    {% if first_image %}
+                        <a href="{% url 'game_detail_funbasvie' game.id %}">
+                            <img src="{{ first_image.image.url }}"
+                                 alt="{{ game.name }}"
+                                 width="200">
+                        </a>
+                    {% endif %}
+                {% endwith %}
+
+                <h3>{{ game.name }}</h3>
+                <p>{{ game.price }} €</p>
+            </div>
+        {% endfor %}
         <form method="post" action="{% url 'logout' %}">
             {% csrf_token %}
             <button type="submit">Logout</button>
