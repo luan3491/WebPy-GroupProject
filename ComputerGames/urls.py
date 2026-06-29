@@ -1,6 +1,9 @@
 from django.urls import path
 from django.views.generic import TemplateView
 
+from ComputerGames import views
+
 urlpatterns = [
-    path('list/', TemplateView.as_view(template_name='computer_games_list.html'), name='list')
+    path('', views.computer_games_list, name='computer_games_list')
+    # path('', views.computer_games_list, name='computer_games_list')
 ]

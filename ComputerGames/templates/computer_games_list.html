@@ -7,11 +7,12 @@
 {% block content %}
 <h1>Computer Games list</h1>
 <ul>
-    {% for computer_game in computer_games %}
+    {% for computer_game in all_computer_games %}
         <li class="card">
             <a href="card">
                 <a href="{{ computer_game.id }}">{{ computer_game.title }}</a>
-                <p>{{ computer_game.genre }} / Ab {{ computer_game.fsk }}</p>
+                <p>Genre: {{ computer_game.genre }}</p>
+                <p>Altersfreigabe: FSK {{ computer_game.fsk }}</p>
                 <p>Developed by: {{ computer_game.developer }}</p>
             </a>
         </li>

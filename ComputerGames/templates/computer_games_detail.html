@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{ computer_game.title }} {% endblock %}
+{% block content %}
+<h1>Computer Game detail</h1>
+
+<ul>
+    <li>
+        <span><b>Name:</b></span>
+        <span>{{ computer_game.name }}<br /></span>
+    </li>
+    <li>
+        <span><b>Beschreibung:</b></span>
+        <span>{{ computer_game.beschreibung }}<br /></span>
+    </li>
+    <li>
+        <span><b>Genre:</b></span>
+        <span>{{ computer_game.genre }}<br /></span>
+    </li>
+    <li>
+        <span><b>FSK:</b></span>
+        <span>Ab {{ computer_game.fsk }}<br /></span>
+    </li>
+    <li>
+        <span><b>Eingetragen durch</b></span>
+        <span>{{ computer_game.ersteller }}<br /></span>
+    </li>
+</ul>

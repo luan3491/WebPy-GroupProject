@@ -1,5 +1,8 @@
+- [x] GitHub Repo
 - [x] Login
 - [x] Signup
+- [x] Super users / admin
+- [-] Homepage
 - [ ] Games page (public tags, age requirements)
 - [ ] Review page (text+stars), edit+delete
 - [ ] Review edit page
@@ -9,7 +12,5 @@
 - [ ] Customer support page
 - [ ] Warenkorb
 - [ ] Payment terminal
-- [ ] Super users
 - [ ] Library
-- [ ] Homepage
 - [ ] Styling
