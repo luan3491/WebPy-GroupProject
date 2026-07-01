@@ -24,14 +24,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('useradmin/', include('Useradmin.urls')),
     path('useradmin/', include('django.contrib.auth.urls')),
-    path('', views.GameListView.as_view(), name='game_list'),
-    path('<int:pk>/', views.GameDetailView.as_view(), name='game_detail'),
-    path('library/', views.game_list, name='game_list_funbasvie'),
-    path('funbasvie/<int:pk>/', views.game_detail, name='game_detail_funbasvie'),
+    path('', views.home, name='home'),
+    path('library/', views.game_list, name='game_list'),
+    path('game/<int:pk>/', views.game_detail, name='game_detail'),
     path('comment/<int:comment_id>/<str:up_or_down>/',views.comment_vote,name='comment_vote'),
     path('review/<int:review_id>/comment/',views.add_review_comment,name='add_review_comment'),
     path('review/<int:review_id>/vote/<str:vote_type>/',views.review_vote,name='review_vote'),
-    path("funbasvie/<int:pk>/pdf/",views.game_pdf,name="game_pdf"),
+    path("game/<int:pk>/pdf/",views.game_pdf,name="game_pdf"),
     path("home/", views.home, name="home"),
 ]
 

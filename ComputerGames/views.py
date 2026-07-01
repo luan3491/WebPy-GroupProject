@@ -93,7 +93,6 @@ def game_pdf(request, pk):
  # Function-based Views
 def game_list(request):
     all_the_games = request.user.owned_games.all()
-
     return render(
         request,
         "library.html",
@@ -119,7 +118,7 @@ def game_detail(request, pk):
             text=request.POST.get("text")
         )
 
-        return redirect("game_detail_funbasvie", pk=pk)
+        return redirect("game_detail", pk=pk)
 
     return render(
         request,
@@ -160,7 +159,7 @@ def comment_vote(request, comment_id, up_or_down):
         vote.save()
 
     return redirect(
-        'game_detail_funbasvie',
+        'game_detail',
         pk=comment.review.game.id
     )
 
@@ -183,7 +182,7 @@ def add_review_comment(request, review_id):
             text=request.POST.get("text")
         )
 
-    return redirect("game_detail_funbasvie", pk=review.game.id)
+    return redirect("game_detail", pk=review.game.id)
 
 
 
@@ -213,7 +212,7 @@ def review_vote(request, review_id, vote_type):
         vote.vote_type = vote_type
         vote.save()
 
-    return redirect("game_detail_funbasvie", pk=review.game.id)
+    return redirect("game_detail", pk=review.game.id)
 
 
 

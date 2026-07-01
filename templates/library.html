@@ -12,7 +12,7 @@
 <ul>
     {% for game in all_the_games %}
         <li>
-            <a href="{% url 'game_detail_funbasvie' game.id %}">
+            <a href="{% url 'game_detail' game.id %}">
                 <b>{{ game.name }}</b>
             </a>
             <br>
@@ -27,4 +27,7 @@
         </li>
     {% endfor %}
 </ul>
+    <a href="{% url 'home' %}">
+    Zurück zum Shop
+    </a>
 {% endblock %}
