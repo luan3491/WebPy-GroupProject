@@ -1,4 +1,4 @@
-# GitHub-Arbeitsablauf für unser Gruppenprojekt
+c# GitHub-Arbeitsablauf für unser Gruppenprojekt
 
 Diese kurze Anleitung erklärt, wie wir ab jetzt am Projekt arbeiten.
 Der `main`-Branch ist geschützt. Das bedeutet: **Nicht direkt auf `main` arbeiten oder pushen.** Änderungen sollen über einen eigenen Branch und einen Pull Request in `main` kommen.

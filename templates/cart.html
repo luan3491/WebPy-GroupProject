@@ -1,31 +1,38 @@
 {% extends 'base.html' %}
 
-{% block title %}Warenkorb{% endblock %}
+    {% block title %}Warenkorb{% endblock %}
 
-{% block content %}
-<h2>Warenkorb</h2>
+    {% block content %}
+    <h2>Warenkorb</h2>
 
-{% for item in cart.items.all %}
-    <p>
-        <strong>{{ item.game.name }}</strong><br>
-        Preis: {{ item.game.price }} €<br>
-        Anzahl: {{ item.quantity }}
-    </p>
+    {% if shopping_cart_is_empty %}
+        <p>Dein Warenkorb ist leer.</p>
+    {% else %}
 
-    <form method="post" action="{% url 'change_quantity' item.id 'minus' %}">
-        {% csrf_token %}
-        <button type="submit">-</button>
-    </form>
+        {% for item in shopping_cart_items %}
+            <p>
+                <strong>{{ item.product_name }}</strong><br>
+                Preis: {{ item.price }} €<br>
+                Anzahl: {{ item.quantity }}
+            </p>
+            <form method="post" action="{% url 'change_quantity' item.id 'minus' %}">
+                {% csrf_token %}
+                <button type="submit">-</button>
+            </form>
+            <form method="post" action="{% url 'change_quantity' item.id 'plus' %}">
+                {% csrf_token %}
+                <button type="submit">+</button>
+            </form>
+            <hr>
+        {% endfor %}
 
-    <form method="post" action="{% url 'change_quantity' item.id 'plus' %}">
-        {% csrf_token %}
-        <button type="submit">+</button>
-    </form>
+        <p><strong>Gesamt:</strong> {{ total }} €</p>
 
-    <hr>
-{% empty %}
-    <p>Dein Warenkorb ist leer.</p>
-{% endfor %}
-
-<a href="{% url 'home' %}">Zurück zum Shop</a>
-{% endblock %}
+        <form method="POST">
+                {% csrf_token %}
+                <button type="submit" name="pay">Mit Kreditkarte bezahlen</button>
+            </form>
+    {% endif %}
+        <br>
+    <a href="{% url 'home' %}">Zurück zum Shop</a>
+    {% endblock %}

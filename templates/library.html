@@ -16,7 +16,6 @@
                 <b>{{ game.name }}</b>
             </a>
             <br>
-
             {% with first_image=game.images.first %}
                 {% if first_image %}
                     <img src="{{ first_image.image.url }}"
