@@ -49,3 +49,7 @@ Requirements.txt generieren - installierte pip packages dokumentieren
 ```
 pip freeze > requirements.txt
 ```
+
+### Demo Daten generieren
+
+python manage.py seed_demo_data

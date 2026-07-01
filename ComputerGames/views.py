@@ -1,5 +1,3 @@
-
-
 # Create your views here.
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
@@ -11,17 +9,11 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
 
 
- #Class-based Views
+# Class-based Views
 class GameListView(ListView):
     model = Game
     context_object_name = "all_the_games"
     template_name = "library.html"
-
-
-
-
-
-
 
 
 class GameDetailView(DetailView):
@@ -33,15 +25,10 @@ class GameDetailView(DetailView):
         game = self.get_object()
 
         Review.objects.create(
-            game=game,
-            user=request.user,
-            text=request.POST.get("text")
+            game=game, user=request.user, text=request.POST.get("text")
         )
 
-        return redirect('game_detail', pk=game.pk)
-
-
-
+        return redirect("game_detail", pk=game.pk)
 
 
 def game_pdf(request, pk):
@@ -58,14 +45,7 @@ def game_pdf(request, pk):
 
     if first_image:
         image = ImageReader(first_image.image.path)
-        pdf.drawImage(
-            image,
-            50,
-            600,
-            width=250,
-            height=180,
-            preserveAspectRatio=True
-        )
+        pdf.drawImage(image, 50, 600, width=250, height=180, preserveAspectRatio=True)
     pdf.setFont("Helvetica", 12)
     pdf.drawString(300, 760, f"Genre: {game.get_genre_display()}")
     pdf.drawString(300, 740, f"Preis: {game.price} €")
@@ -79,33 +59,13 @@ def game_pdf(request, pk):
     pdf.showPage()
     pdf.save()
     buffer.seek(0)
-    return FileResponse(
-        buffer,
-        as_attachment=True,
-        filename=f"{game.name}.pdf"
-    )
+    return FileResponse(buffer, as_attachment=True, filename=f"{game.name}.pdf")
 
 
-
-
-
-
- # Function-based Views
+# Function-based Views
 def game_list(request):
     all_the_games = request.user.owned_games.all()
-    return render(
-        request,
-        "library.html",
-        {"all_the_games": all_the_games}
-    )
-
-
-
-
-
-
-
-
+    return render(request, "library.html", {"all_the_games": all_the_games})
 
 
 def game_detail(request, pk):
@@ -113,42 +73,23 @@ def game_detail(request, pk):
 
     if request.method == "POST" and request.user.is_authenticated:
         Review.objects.create(
-            game=that_one_game,
-            user=request.user,
-            text=request.POST.get("text")
+            game=that_one_game, user=request.user, text=request.POST.get("text")
         )
 
         return redirect("game_detail", pk=pk)
 
-    return render(
-        request,
-        "gamepage.html",
-        {"that_one_game": that_one_game}
-    )
-
-
-
-
-
-
-
-
+    return render(request, "gamepage.html", {"that_one_game": that_one_game})
 
 
 def comment_vote(request, comment_id, up_or_down):
     comment = get_object_or_404(ReviewComment, pk=comment_id)
-    vote = CommentVote.objects.filter(
-        user=request.user,
-        comment=comment
-    ).first()
+    vote = CommentVote.objects.filter(user=request.user, comment=comment).first()
 
-    new_vote = 'U' if up_or_down == 'up' else 'D'
+    new_vote = "U" if up_or_down == "up" else "D"
 
     if vote is None:
         CommentVote.objects.create(
-            user=request.user,
-            comment=comment,
-            up_or_down=new_vote
+            user=request.user, comment=comment, up_or_down=new_vote
         )
 
     elif vote.up_or_down == new_vote:
@@ -158,18 +99,7 @@ def comment_vote(request, comment_id, up_or_down):
         vote.up_or_down = new_vote
         vote.save()
 
-    return redirect(
-        'game_detail',
-        pk=comment.review.game.id
-    )
-
-
-
-
-
-
-
-
+    return redirect("game_detail", pk=comment.review.game.id)
 
 
 def add_review_comment(request, review_id):
@@ -177,35 +107,19 @@ def add_review_comment(request, review_id):
 
     if request.method == "POST" and request.user.is_authenticated:
         ReviewComment.objects.create(
-            review=review,
-            user=request.user,
-            text=request.POST.get("text")
+            review=review, user=request.user, text=request.POST.get("text")
         )
 
     return redirect("game_detail", pk=review.game.id)
 
 
-
-
-
-
-
-
-
 def review_vote(request, review_id, vote_type):
     review = get_object_or_404(Review, pk=review_id)
 
-    vote = ReviewVote.objects.filter(
-        review=review,
-        user=request.user
-    ).first()
+    vote = ReviewVote.objects.filter(review=review, user=request.user).first()
 
     if vote is None:
-        ReviewVote.objects.create(
-            review=review,
-            user=request.user,
-            vote_type=vote_type
-        )
+        ReviewVote.objects.create(review=review, user=request.user, vote_type=vote_type)
     elif vote.vote_type == vote_type:
         vote.delete()
     else:
@@ -215,16 +129,7 @@ def review_vote(request, review_id, vote_type):
     return redirect("game_detail", pk=review.game.id)
 
 
-
-
-
 def home(request):
     all_the_games = Game.objects.all()
 
-    return render(
-        request,
-        "homepage.html",
-        {
-            "all_the_games": all_the_games
-        }
-    )
+    return render(request, "homepage.html", {"all_the_games": all_the_games})
