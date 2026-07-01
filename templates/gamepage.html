@@ -8,6 +8,10 @@
 {% block title %}Computer Spiel Infos{% endblock %}
 
 {% block content %}
+    <a href="{% url 'cart' %}">
+    zum Warenkorb
+    </a>
+    <br>
     <a href="{% url 'game_pdf' that_one_game.id %}">
     PDF herunterladen
     </a>
@@ -46,7 +50,6 @@
     {{ that_one_game.price }} €
 </p>
 <br>
-
 
 {% for review in that_one_game.review_set.all %}
     <p>
@@ -101,11 +104,20 @@
     <textarea name="text"></textarea>
     <br>
     <br>
-    <button type="submit">
+    <button type="submit" name="save_review">
         save review
     </button>
 </form>
 {% endif %}
+
+    {% if user.is_authenticated %}
+    <form method="post">
+    {% csrf_token %}
+    <button type="submit" name="add_to_cart">
+        Add to shopping cart
+    </button>
+</form>
+    {% endif %}
 
     <br>
 <a href="{% url 'game_list' %}">

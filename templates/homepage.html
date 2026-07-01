@@ -11,7 +11,6 @@
         <br>
         <br>
         <h2>Shop</h2>
-
         {% for game in all_the_games %}
             <div>
                 {% with first_image=game.images.first %}
@@ -23,7 +22,6 @@
                         </a>
                     {% endif %}
                 {% endwith %}
-
                 <h3>{{ game.name }}</h3>
                 <p>{{ game.price }} €</p>
             </div>
