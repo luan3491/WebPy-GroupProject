@@ -3,12 +3,14 @@
 - [x] Signup
   - [ ] create "customer service" signup with elevated permissions through extra password
 - [x] Super users / admin
-- [-] Homepage
-- [ ] Games page (public tags, age requirements)
+- [x] Homepage
+- [x] Games page 
+  - [x] public tags
+  - [x] age requirements
 - [ ] Review page (text+stars), edit+delete
 - [ ] Review edit page
-- [ ] Review upvote/downvote system (both counted seperately)
-- [ ] Commentary to reviews, edit+delete
+- [x] Review upvote/downvote system (both counted seperately)
+- [x] Commentary to reviews, edit+delete
 - [ ] Comment edit page
 - [ ] Customer support page
 - [ ] Warenkorb

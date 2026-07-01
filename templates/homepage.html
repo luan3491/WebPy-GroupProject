@@ -1,37 +1,65 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Homepage{% endblock %}
 
 {% block content %}
 
     {% if user.is_authenticated %}
-        <p>Hallo {{ user.display_name }}!</p>
-        <p>Dein Accountname: {{ user.username }}</p>
-        <a href="{% url 'game_list' %}"> to your library</a>
-        <br>
-        <br>
-        <h2>Shop</h2>
 
-        {% for game in all_the_games %}
-            <div>
-                {% with first_image=game.images.first %}
-                    {% if first_image %}
-                        <a href="{% url 'game_detail' game.id %}">
-                            <img src="{{ first_image.image.url }}"
-                                 alt="{{ game.name }}"
-                                 width="200">
-                        </a>
-                    {% endif %}
-                {% endwith %}
+    <nav class="navbar">
+        <div class="navbar--left-section">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'game_list' %}">Library</a>
+        </div>
 
-                <h3>{{ game.name }}</h3>
-                <p>{{ game.price }} €</p>
+        <div class="navbar--right-section">
+            {% if user.is_authenticated %}
+
+                <div>
+                    Hallo {{ user.display_name }}! 
+                    <form class="form-inline" method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit">Logout</button>
+                    </form>
+                </div>
+                
+                
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'signup' %}">Signup</a>
+            {% endif %}
+        </div>
+
+    </nav>
+        <section class="container">
+            <h1>Shop</h1>
+            <div class="game-list">
+                {% for game in all_the_games %}
+                    <div class="game">
+                                {% with first_image=game.images.first %}
+                                    <a href="{% url 'game_detail' game.id %}">
+                                        {% if first_image %}
+                                            <img src="{{ first_image.image.url }}"
+                                                 alt="{{ game.name }}"
+                                                 width="200"
+                                                 height="200"
+                                            >
+                                        {% else %}
+                                            <div class="image-placeholder" role="img" aria-label="No image available">
+                                            </div>
+                                        {% endif %}
+                                    </a>
+                                {% endwith %}
+
+                        <h3>{{ game.name }}</h3>
+                        <p>{{ game.price }} €</p>
+                    </div>
+                {% endfor %}
             </div>
-        {% endfor %}
-        <form method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button type="submit">Logout</button>
-        </form>
+        </section>
+
+        
     {% else %}
         <p>Du bist nicht eingeloggt.</p>
         <p><a href="{% url 'login' %}">Login</a></p>
