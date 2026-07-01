@@ -1,6 +1,7 @@
 - [x] GitHub Repo
 - [x] Login
 - [x] Signup
+  - [ ] create "customer service" signup with elevated permissions through extra password
 - [x] Super users / admin
 - [-] Homepage
 - [ ] Games page (public tags, age requirements)
@@ -14,3 +15,5 @@
 - [ ] Payment terminal
 - [ ] Library
 - [ ] Styling
+
+---
