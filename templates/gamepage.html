@@ -51,7 +51,14 @@
 </p>
 <br>
 
-{% for review in that_one_game.review_set.all %}
+    <p>
+        {% if review.user.profile_picture %}
+        <img src="{{ review.user.profile_picture.url }}"
+         alt="{{ review.user.username }}"
+         width="50">
+        {% endif %}
+
+    {% for review in that_one_game.review_set.all %}
     <p>
         {% if review.user.profile_picture %}
         <img src="{{ review.user.profile_picture.url }}"
@@ -119,6 +126,7 @@
 </form>
     {% endif %}
 
+
     <br>
 <a href="{% url 'game_list' %}">
     Zurück zur Spielenliste
@@ -127,4 +135,7 @@
     <a href="{% url 'home' %}">
     Zurück zum Shop
     </a>
-{% endblock %}
+        <br>
+    </section>
+    {% endblock %}
+
