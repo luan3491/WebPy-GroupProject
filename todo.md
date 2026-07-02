@@ -1,21 +1,22 @@
 - [x] GitHub Repo
 - [x] Login
 - [x] Signup
-  - [ ] create "customer service" signup with elevated permissions through extra password
 - [x] Super users / admin
 - [x] Homepage
 - [x] Games page 
   - [x] public tags
   - [x] age requirements
-- [ ] Review page (text+stars), edit+delete
-- [ ] Review edit page
 - [x] Review upvote/downvote system (both counted seperately)
 - [x] Commentary to reviews, edit+delete
+- [x] Warenkorb
+- [x] Payment terminal
+- [x] Library
+
+- [-] Styling
+
 - [ ] Comment edit page
 - [ ] Customer support page
-- [ ] Warenkorb
-- [ ] Payment terminal
-- [ ] Library
-- [ ] Styling
+- [ ] Review page (text+stars), edit+delete
+- [ ] Review edit page
 
 ---
