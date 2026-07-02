@@ -10,6 +10,10 @@
 {% block content %}
 <section class="container">
 
+    <a href="{% url 'cart' %}">
+    zum Warenkorb
+    </a>
+    <br>
     <a href="{% url 'game_pdf' that_one_game.id %}">
     PDF herunterladen
     </a>
@@ -20,6 +24,7 @@
             width="300">
     {% endfor %}
 
+{% for review in that_one_game.review_set.all %}
     <p>
         <strong>Name:</strong> {{ that_one_game.name }}
     </p>
@@ -110,6 +115,35 @@
         <br>
     <a href="{% url 'game_list' %}">
         Zurück zur Spielenliste
+{% if user.is_authenticated %}
+<form method="post">
+    {% csrf_token %}
+
+    <textarea name="text"></textarea>
+    <br>
+    <br>
+    <button type="submit" name="save_review">
+        save review
+    </button>
+</form>
+{% endif %}
+
+    {% if user.is_authenticated %}
+    <form method="post">
+    {% csrf_token %}
+    <button type="submit" name="add_to_cart">
+        Add to shopping cart
+    </button>
+</form>
+    {% endif %}
+
+    <br>
+<a href="{% url 'game_list' %}">
+    Zurück zur Spielenliste
+</a>
+    <br>
+    <a href="{% url 'home' %}">
+    Zurück zum Shop
     </a>
         <br>
         <a href="{% url 'home' %}">

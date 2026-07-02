@@ -3,10 +3,12 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from .models import Game, Review, ReviewComment, ReviewVote, CommentVote
 from django.shortcuts import redirect
-import io
+from Shoppingcart.models import ShoppingCart
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
+from reportlab.lib.pagesizes import A4
+import io
 
 
 # Class-based Views
@@ -31,12 +33,14 @@ class GameDetailView(DetailView):
         return redirect("game_detail", pk=game.pk)
 
 
-def game_pdf(request, pk):
+
+
+
+def game_pdf(request,pk):
     game = Game.objects.get(pk=pk)
 
     buffer = io.BytesIO()
-    pdf = canvas.Canvas(buffer)
-
+    pdf = canvas.Canvas(buffer, pagesize=A4)
     pdf.setFont("Helvetica-Bold", 18)
     pdf.drawString(50, 800, game.name)
 
@@ -52,8 +56,9 @@ def game_pdf(request, pk):
     pdf.drawString(300, 720, f"FSK: {game.get_fsk_display()}")
     pdf.drawString(300, 700, f"Spieltyp: {game.get_game_type_display()}")
     pdf.drawString(300, 680, f"OS: {game.get_operation_system_display()}")
-    pdf.drawString(50, 470, "Beschreibung:")
-    text = pdf.beginText(50, 450)
+    text = pdf.beginText(300, 660)
+    text.setFont("Helvetica", 12)
+    text.textLine("Beschreibung:")
     text.textLines(game.description)
     pdf.drawText(text)
     pdf.showPage()
@@ -72,11 +77,22 @@ def game_detail(request, pk):
     that_one_game = get_object_or_404(Game, pk=pk)
 
     if request.method == "POST" and request.user.is_authenticated:
-        Review.objects.create(
-            game=that_one_game, user=request.user, text=request.POST.get("text")
-        )
 
-        return redirect("game_detail", pk=pk)
+        if "add_to_cart" in request.POST:
+            ShoppingCart.add_item(request.user, that_one_game)
+            return redirect("cart")
+
+        elif "save_review" in request.POST:
+            text = request.POST.get("text")
+
+            if text:
+                Review.objects.create(
+                    game=that_one_game,
+                    user=request.user,
+                    text=text
+                )
+
+            return redirect("game_detail", pk=pk)
 
     return render(request, "gamepage.html", {"that_one_game": that_one_game})
 
