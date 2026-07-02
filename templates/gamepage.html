@@ -8,8 +8,6 @@
 {% block title %}Computer Spiel Infos{% endblock %}
 
 {% block content %}
-<section class="container">
-
     <a href="{% url 'cart' %}">
     zum Warenkorb
     </a>
@@ -18,39 +16,47 @@
     PDF herunterladen
     </a>
     <h2>Computer Spiel Infos</h2>
+    <br>
     {% for image in that_one_game.images.all %}
-        <img src="{{ image.image.url }}"
-            alt="{{ image.caption }}"
-            width="300">
-    {% endfor %}
+    <img src="{{ image.image.url }}"
+         alt="{{ image.caption }}"
+         width="300">
+{% endfor %}
+<p>
+    <strong>Name:</strong> {{ that_one_game.name }}
+</p>
+<p>
+    <strong>Beschreibung:</strong><br>
+    {{ that_one_game.description }}
+</p>
+<p>
+    <strong>Spieltyp:</strong>
+    {{ that_one_game.get_game_type_display }}
+</p>
+<p>
+    <strong>Betriebssystem:</strong>
+    {{ that_one_game.get_operation_system_display }}
+</p>
+<p>
+    <strong>Genre:</strong>
+    {{ that_one_game.get_genre_display }}
+</p>
+<p>
+    <strong>FSK:</strong>
+    {{ that_one_game.get_fsk_display }}
+</p>
+<p>
+    <strong>Preis:</strong>
+    {{ that_one_game.price }} €
+</p>
+<br>
 
     <p>
-        <strong>Name:</strong> {{ that_one_game.name }}
-    </p>
-    <p>
-        <strong>Beschreibung:</strong>
-        {{ that_one_game.description }}
-    </p>
-    <p>
-        <strong>Spieltyp:</strong>
-        {{ that_one_game.get_game_type_display }}
-    </p>
-    <p>
-        <strong>Betriebssystem:</strong>
-        {{ that_one_game.get_operation_system_display }}
-    </p>
-    <p>
-        <strong>Genre:</strong>
-        {{ that_one_game.get_genre_display }}
-    </p>
-    <p>
-        <strong>FSK:</strong>
-        {{ that_one_game.get_fsk_display }}
-    </p>
-    <p>
-        <strong>Preis:</strong>
-        {{ that_one_game.price }} €
-    </p>
+        {% if review.user.profile_picture %}
+        <img src="{{ review.user.profile_picture.url }}"
+         alt="{{ review.user.username }}"
+         width="50">
+        {% endif %}
 
     {% for review in that_one_game.review_set.all %}
     <p>
