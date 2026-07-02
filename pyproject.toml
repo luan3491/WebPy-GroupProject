@@ -5,15 +5,3 @@ requires-python = ">=3.14"
 dependencies = [
     "django>=6.0.6",
 ]
-
-[tool.black]
-exclude = '''
-/(
-   \.git
-  | \.venv
-  | build
-  | dist
-  | migrations
-  | settings_folder
-)/
-'''
