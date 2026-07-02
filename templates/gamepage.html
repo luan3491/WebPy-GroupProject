@@ -8,6 +8,8 @@
 {% block title %}Computer Spiel Infos{% endblock %}
 
 {% block content %}
+<section class="container">
+
     <a href="{% url 'cart' %}">
     zum Warenkorb
     </a>
@@ -16,87 +18,103 @@
     PDF herunterladen
     </a>
     <h2>Computer Spiel Infos</h2>
-    <br>
     {% for image in that_one_game.images.all %}
-    <img src="{{ image.image.url }}"
-         alt="{{ image.caption }}"
-         width="300">
-{% endfor %}
-<p>
-    <strong>Name:</strong> {{ that_one_game.name }}
-</p>
-<p>
-    <strong>Beschreibung:</strong><br>
-    {{ that_one_game.description }}
-</p>
-<p>
-    <strong>Spieltyp:</strong>
-    {{ that_one_game.get_game_type_display }}
-</p>
-<p>
-    <strong>Betriebssystem:</strong>
-    {{ that_one_game.get_operation_system_display }}
-</p>
-<p>
-    <strong>Genre:</strong>
-    {{ that_one_game.get_genre_display }}
-</p>
-<p>
-    <strong>FSK:</strong>
-    {{ that_one_game.get_fsk_display }}
-</p>
-<p>
-    <strong>Preis:</strong>
-    {{ that_one_game.price }} €
-</p>
-<br>
+        <img src="{{ image.image.url }}"
+            alt="{{ image.caption }}"
+            width="300">
+    {% endfor %}
 
 {% for review in that_one_game.review_set.all %}
     <p>
-        {% if review.user.profile_picture %}
-        <img src="{{ review.user.profile_picture.url }}"
-         alt="{{ review.user.username }}"
-         width="50">
+        <strong>Name:</strong> {{ that_one_game.name }}
+    </p>
+    <p>
+        <strong>Beschreibung:</strong>
+        {{ that_one_game.description }}
+    </p>
+    <p>
+        <strong>Spieltyp:</strong>
+        {{ that_one_game.get_game_type_display }}
+    </p>
+    <p>
+        <strong>Betriebssystem:</strong>
+        {{ that_one_game.get_operation_system_display }}
+    </p>
+    <p>
+        <strong>Genre:</strong>
+        {{ that_one_game.get_genre_display }}
+    </p>
+    <p>
+        <strong>FSK:</strong>
+        {{ that_one_game.get_fsk_display }}
+    </p>
+    <p>
+        <strong>Preis:</strong>
+        {{ that_one_game.price }} €
+    </p>
+
+    {% for review in that_one_game.review_set.all %}
+        <p>
+            {% if review.user.profile_picture %}
+            <img src="{{ review.user.profile_picture.url }}"
+            alt="{{ review.user.username }}"
+            width="50">
+            {% endif %}
+
+            <b>{{ review.user }}</b>: {{ review.text }}
+
+            <br>
+
+            <small>{{ review.created_at }}</small>
+            <span style="color: skyblue">{{ comment.get_upvotes_count }}</span>
+            <br>
+            <b>ist dieses Review hilfrei?</b>
+            <a href="{% url 'review_vote' review.id 'Y' %}">yes</a>
+            <a href="{% url 'review_vote' review.id 'N' %}">no</a>
+            <a href="{% url 'review_vote' review.id 'F' %}">funny</a>
+        </p>
+        {% if review.get_yes_count == 1 %}
+            <p>Eine Person fand diese Review hilfsreich</p>
+        {% elif review.get_yes_count > 1 %}
+            <p>{{ review.get_yes_count }} Personen fanden diese Review hilfsreich</p>
         {% endif %}
 
-        <b>{{ review.user }}</b>: {{ review.text }}
+            {% for comment in review.comments.all %}
+            <p>
+                <b>{{ comment.user }}</b>: {{ comment.text }}
+                <br>
+                <small>{{ comment.created_at }}</small>
+            </p>
+                        <span style="color: darkgreen">{{ comment.get_upvotes_count }}</span>
+            <a href="{% url 'comment_vote' comment.id 'up' %}">↑</a>
 
-        <br>
-
-        <small>{{ review.created_at }}</small>
-        <span style="color: skyblue">{{ comment.get_upvotes_count }}</span>
-        <br>
-        <b>ist dieses Review hilfrei?</b>
-        <a href="{% url 'review_vote' review.id 'Y' %}">yes</a>
-        <a href="{% url 'review_vote' review.id 'N' %}">no</a>
-        <a href="{% url 'review_vote' review.id 'F' %}">funny</a>
-    </p>
-    {% if review.get_yes_count == 1 %}
-        <p>Eine Person fand diese Review hilfsreich</p>
-    {% elif review.get_yes_count > 1 %}
-         <p>{{ review.get_yes_count }} Personen fanden diese Review hilfsreich</p>
-    {% endif %}
-
-        {% for comment in review.comments.all %}
-        <p>
-            <b>{{ comment.user }}</b>: {{ comment.text }}
+            <span style="color: crimson">{{ comment.get_downvotes_count }}</span>
+            <a href="{% url 'comment_vote' comment.id 'down' %}">↓</a>
+        {% endfor %}
+        <form method="post" action="{% url 'add_review_comment' review.id %}">
+            {% csrf_token %}
+            <textarea name="text"></textarea>
             <br>
-            <small>{{ comment.created_at }}</small>
-        </p>
-                    <span style="color: darkgreen">{{ comment.get_upvotes_count }}</span>
-        <a href="{% url 'comment_vote' comment.id 'up' %}">↑</a>
-
-        <span style="color: crimson">{{ comment.get_downvotes_count }}</span>
-        <a href="{% url 'comment_vote' comment.id 'down' %}">↓</a>
+            <button type="submit">Kommentar speichern</button>
+            </form>
     {% endfor %}
-    <form method="post" action="{% url 'add_review_comment' review.id %}">
+
+    {% if user.is_authenticated %}
+    <form method="post">
         {% csrf_token %}
+
         <textarea name="text"></textarea>
         <br>
-        <button type="submit">Kommentar speichern</button>
-        </form>
-{% endfor %}
+        <br>
+        <button type="submit">
+            save review
+        </button>
+    </form>
+    {% endif %}
 
+        <br>
+    <a href="{% url 'game_list' %}">
+        Zurück zur Spielenliste
 {% if user.is_authenticated %}
 <form method="post">
     {% csrf_token %}
@@ -127,4 +145,10 @@
     <a href="{% url 'home' %}">
     Zurück zum Shop
     </a>
-{% endblock %}
+        <br>
+        <a href="{% url 'home' %}">
+        Zurück zum Shop
+        </a>
+    {% endblock %}
+</section>
+
