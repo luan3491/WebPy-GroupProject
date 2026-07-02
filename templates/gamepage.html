@@ -24,7 +24,6 @@
             width="300">
     {% endfor %}
 
-{% for review in that_one_game.review_set.all %}
     <p>
         <strong>Name:</strong> {{ that_one_game.name }}
     </p>
@@ -54,67 +53,51 @@
     </p>
 
     {% for review in that_one_game.review_set.all %}
-        <p>
-            {% if review.user.profile_picture %}
-            <img src="{{ review.user.profile_picture.url }}"
-            alt="{{ review.user.username }}"
-            width="50">
-            {% endif %}
-
-            <b>{{ review.user }}</b>: {{ review.text }}
-
-            <br>
-
-            <small>{{ review.created_at }}</small>
-            <span style="color: skyblue">{{ comment.get_upvotes_count }}</span>
-            <br>
-            <b>ist dieses Review hilfrei?</b>
-            <a href="{% url 'review_vote' review.id 'Y' %}">yes</a>
-            <a href="{% url 'review_vote' review.id 'N' %}">no</a>
-            <a href="{% url 'review_vote' review.id 'F' %}">funny</a>
-        </p>
-        {% if review.get_yes_count == 1 %}
-            <p>Eine Person fand diese Review hilfsreich</p>
-        {% elif review.get_yes_count > 1 %}
-            <p>{{ review.get_yes_count }} Personen fanden diese Review hilfsreich</p>
+    <p>
+        {% if review.user.profile_picture %}
+        <img src="{{ review.user.profile_picture.url }}"
+         alt="{{ review.user.username }}"
+         width="50">
         {% endif %}
 
-            {% for comment in review.comments.all %}
-            <p>
-                <b>{{ comment.user }}</b>: {{ comment.text }}
-                <br>
-                <small>{{ comment.created_at }}</small>
-            </p>
-                        <span style="color: darkgreen">{{ comment.get_upvotes_count }}</span>
-            <a href="{% url 'comment_vote' comment.id 'up' %}">↑</a>
+        <b>{{ review.user }}</b>: {{ review.text }}
 
-            <span style="color: crimson">{{ comment.get_downvotes_count }}</span>
-            <a href="{% url 'comment_vote' comment.id 'down' %}">↓</a>
-        {% endfor %}
-        <form method="post" action="{% url 'add_review_comment' review.id %}">
-            {% csrf_token %}
-            <textarea name="text"></textarea>
-            <br>
-            <button type="submit">Kommentar speichern</button>
-            </form>
-    {% endfor %}
-
-    {% if user.is_authenticated %}
-    <form method="post">
-        {% csrf_token %}
-
-        <textarea name="text"></textarea>
         <br>
+
+        <small>{{ review.created_at }}</small>
+        <span style="color: skyblue">{{ comment.get_upvotes_count }}</span>
         <br>
-        <button type="submit">
-            save review
-        </button>
-    </form>
+        <b>ist dieses Review hilfrei?</b>
+        <a href="{% url 'review_vote' review.id 'Y' %}">yes</a>
+        <a href="{% url 'review_vote' review.id 'N' %}">no</a>
+        <a href="{% url 'review_vote' review.id 'F' %}">funny</a>
+    </p>
+    {% if review.get_yes_count == 1 %}
+        <p>Eine Person fand diese Review hilfsreich</p>
+    {% elif review.get_yes_count > 1 %}
+         <p>{{ review.get_yes_count }} Personen fanden diese Review hilfsreich</p>
     {% endif %}
 
+        {% for comment in review.comments.all %}
+        <p>
+            <b>{{ comment.user }}</b>: {{ comment.text }}
+            <br>
+            <small>{{ comment.created_at }}</small>
+        </p>
+                    <span style="color: darkgreen">{{ comment.get_upvotes_count }}</span>
+        <a href="{% url 'comment_vote' comment.id 'up' %}">↑</a>
+
+        <span style="color: crimson">{{ comment.get_downvotes_count }}</span>
+        <a href="{% url 'comment_vote' comment.id 'down' %}">↓</a>
+    {% endfor %}
+    <form method="post" action="{% url 'add_review_comment' review.id %}">
+        {% csrf_token %}
+        <textarea name="text"></textarea>
         <br>
-    <a href="{% url 'game_list' %}">
-        Zurück zur Spielenliste
+        <button type="submit">Kommentar speichern</button>
+        </form>
+{% endfor %}
+
 {% if user.is_authenticated %}
 <form method="post">
     {% csrf_token %}
@@ -137,6 +120,7 @@
 </form>
     {% endif %}
 
+
     <br>
 <a href="{% url 'game_list' %}">
     Zurück zur Spielenliste
@@ -146,9 +130,6 @@
     Zurück zum Shop
     </a>
         <br>
-        <a href="{% url 'home' %}">
-        Zurück zum Shop
-        </a>
+    </section>
     {% endblock %}
-</section>
 
