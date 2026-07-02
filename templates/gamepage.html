@@ -13,7 +13,6 @@
     <a href="{% url 'cart' %}">zum Warenkorb</a>
     <a href="{% url 'game_pdf' that_one_game.id %}">PDF herunterladen</a>
     <h2>Computer Spiel Infos</h2>
-    <br>
     {% for image in that_one_game.images.all %}
         <img src="{{ image.image.url }}" alt="{{ image.caption }}" width="300">
     {% endfor %}
