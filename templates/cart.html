@@ -3,6 +3,7 @@
     {% block title %}Warenkorb{% endblock %}
 
     {% block content %}
+    <a class="btn" href="{% url 'home' %}">Zurück zum Shop</a>
     <h2>Warenkorb</h2>
 
     {% if shopping_cart_is_empty %}
@@ -34,5 +35,4 @@
             </form>
     {% endif %}
         <br>
-    <a href="{% url 'home' %}">Zurück zum Shop</a>
     {% endblock %}
