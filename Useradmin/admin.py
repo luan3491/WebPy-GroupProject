@@ -7,13 +7,13 @@ from .models import MyUser
 class MyUserAdmin(UserAdmin):
     fieldsets = tuple(UserAdmin.fieldsets or ()) + (
         (
-            "Additional information",
+            'Additional information',
             {
-                "fields": (
-                    "display_name",
-                    "biography",
-                    "profile_picture",
-                    "user_type",
+                'fields': (
+                    'display_name',
+                    'biography',
+                    'profile_picture',
+                    'user_type',
                 ),
             },
         ),
@@ -21,26 +21,26 @@ class MyUserAdmin(UserAdmin):
 
     add_fieldsets = tuple(UserAdmin.add_fieldsets or ()) + (
         (
-            "Additional information",
+            'Additional information',
             {
-                "fields": (
-                    "display_name",
-                    "email",
-                    "biography",
-                    "profile_picture",
-                    "user_type",
+                'fields': (
+                    'display_name',
+                    'email',
+                    'biography',
+                    'profile_picture',
+                    'user_type',
                 ),
             },
         ),
     )
 
     list_display = (
-        "username",
-        "display_name",
-        "email",
-        "user_type",
-        "is_staff",
-        "is_active",
+        'username',
+        'display_name',
+        'email',
+        'user_type',
+        'is_staff',
+        'is_active',
     )
 
 
