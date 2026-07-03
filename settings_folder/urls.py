@@ -23,16 +23,28 @@ from ComputerGames import views as game_views
 from Shoppingcart import views as cart_views
 urlpatterns = [
     path('admin/', admin.site.urls),
+
     path('', game_views.home, name='home'),
     path('home/', game_views.home, name='home'),
+
     path('useradmin/', include('Useradmin.urls')),
     path('useradmin/', include('django.contrib.auth.urls')),
+
     path('library/', game_views.game_list, name='game_list'),
     path('game/<int:pk>/', game_views.game_detail, name='game_detail'),
     path('game/<int:pk>/pdf/', game_views.game_pdf, name='game_pdf'),
-    path('comment/<int:comment_id>/<str:up_or_down>/', game_views.comment_vote, name='comment_vote'),
-    path('review/<int:review_id>/comment/', game_views.add_review_comment, name='add_review_comment'),
+
+    path("review/<int:review_id>/edit/", game_views.edit_review, name="edit_review"),
+    path("review/<int:review_id>/delete/", game_views.delete_review, name="delete_review"),
+
+    path("comment/<int:comment_id>/edit/", game_views.edit_comment, name="edit_comment"),
+    path("comment/<int:comment_id>/delete/", game_views.delete_comment, name="delete_comment"),
+
     path('review/<int:review_id>/vote/<str:vote_type>/', game_views.review_vote, name='review_vote'),
+    path('comment/<int:comment_id>/<str:up_or_down>/', game_views.comment_vote, name='comment_vote'),
+
+    path('review/<int:review_id>/comment/', game_views.add_review_comment, name='add_review_comment'),
+
     path('cart/', cart_views.show_shopping_cart, name='cart'),
     path('cart/pay/', cart_views.pay, name='shopping_cart_pay'),
     path('cart/item/<int:item_id>/<str:action>/', cart_views.change_quantity, name='change_quantity'),

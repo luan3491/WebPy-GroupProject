@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block css %}
-<link rel="stylesheet" type="text/css"
-      href="{% static 'style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 {% endblock %}
 
 {% block title %}Computer Spiel Infos{% endblock %}
@@ -19,104 +19,186 @@
             <a class="btn" href="{% url 'cart' %}">zum Warenkorb</a>
         </div>
     </nav>
-            
+
     <h1>{{ that_one_game.name }}</h1>
+
     {% for image in that_one_game.images.all %}
         <img src="{{ image.image.url }}" alt="{{ image.caption }}" width="300">
     {% endfor %}
 
     <div class="game-info">
-        <p> {{ that_one_game.description }} </p>
-        <p> <strong>Genre:</strong> {{ that_one_game.get_game_type_display }} </p>
+        <p>{{ that_one_game.description }}</p>
+
+        <p><strong>Genre:</strong> {{ that_one_game.get_game_type_display }}</p>
+        <p><strong>Betriebssystem:</strong> {{ that_one_game.get_operation_system_display }}</p>
+        <p><strong>Genre:</strong> {{ that_one_game.get_genre_display }}</p>
+        <p><strong>FSK:</strong> {{ that_one_game.get_fsk_display }}</p>
+
         <p>
-            <strong>Betriebssystem:</strong> {{ that_one_game.get_operation_system_display }}
-        </p>
-        <p>
-            <strong>Genre:</strong> {{ that_one_game.get_genre_display }}
-        </p>
-        <p>
-            <strong>FSK:</strong> {{ that_one_game.get_fsk_display }}
-        </p>
-        <p>
-            <a class="btn btn--secondary" href="{% url 'game_pdf' that_one_game.id %}">PDF herunterladen</a>
+            <a class="btn btn--secondary" href="{% url 'game_pdf' that_one_game.id %}">
+                PDF herunterladen
+            </a>
         </p>
     </div>
+
     <div class="price-container">
         <span class="price">{{ that_one_game.price }} €</span>
+
         {% if user.is_authenticated %}
-            <form class="form-inline" method="post">
-                {% csrf_token %}
-                <button class="btn" type="submit" name="add_to_cart">Zum Warenkorb hinzufügen</button>
-            </form>
+        <form method="post" class="form-inline">
+            {% csrf_token %}
+            <button class="btn" type="submit" name="add_to_cart">
+                Zum Warenkorb hinzufügen
+            </button>
+        </form>
         {% endif %}
     </div>
 
+
     <div class="reviews">
         <h2>Reviews</h2>
-            {% for review in that_one_game.review_set.all %}
-            <div>
-                {% if review.user.profile_picture %}
-                    <img src="{{ review.user.profile_picture.url }}"
-                        alt="{{ review.user.username }}"
-                        width="50">
-                {% endif %}
 
-                <b>{{ review.user }}</b>: {{ review.text }}
-                <div><small>{{ review.created_at }}</small></div>
+        {% for review in that_one_game.review_set.all %}
+        <div class="review-box">
 
-                <span style="color: skyblue">{{ comment.get_upvotes_count }}</span>
-                <div>
-                    <b>Ist dieses Review hilfrei?</b>
-                    <a href="{% url 'review_vote' review.id 'Y' %}">yes</a>
-                    <a href="{% url 'review_vote' review.id 'N' %}">no</a>
-                    <a href="{% url 'review_vote' review.id 'F' %}">funny</a>
-                </div>
-            </div>
-            {% if review.get_yes_count == 1 %}
-                <p class="review-count">Eine Person fand diesen Review hilfsreich</p>
-            {% elif review.get_yes_count > 1 %}
-                <p class="review-count">{{ review.get_yes_count }} Personen fanden diese Review hilfsreich</p>
+            {% if review.user.profile_picture %}
+                <img src="{{ review.user.profile_picture.url }}"
+                     width="50"
+                     alt="{{ review.user.username }}">
             {% endif %}
-                <div class="comments">
-                    {% for comment in review.comments.all %}
-                        <p class="comment">
-                            <b>{{ comment.user }}</b>: {{ comment.text }}
-                            <br>
-                            <small>{{ comment.created_at }}</small>
-                                    <span style="color: darkgreen">{{ comment.get_upvotes_count }}</span>
-                            <a href="{% url 'comment_vote' comment.id 'up' %}">↑</a>
 
-                            <span style="color: crimson">{{ comment.get_downvotes_count }}</span>
-                            <a href="{% url 'comment_vote' comment.id 'down' %}">↓</a>
-                        </p>
-                    {% endfor %}
-                    <form method="post" action="{% url 'add_review_comment' review.id %}">
+            <b>{{ review.user }}</b>: {{ review.text }}
+            <br>
+            <small>{{ review.created_at }}</small>
+
+            <p>
+                👍 {{ review.get_yes_count }} |
+                👎 {{ review.get_no_count }} |
+                😂 {{ review.get_funny_count }}
+            </p>
+
+            <div>
+                <a href="{% url 'review_vote' review.id 'Y' %}">yes</a>
+                <a href="{% url 'review_vote' review.id 'N' %}">no</a>
+                <a href="{% url 'review_vote' review.id 'F' %}">funny</a>
+            </div>
+
+            {% if review.user == user %}
+
+                <button type="button"
+                        onclick="toggleReviewEdit({{ review.id }})">
+                    Edit review
+                </button>
+
+                <form method="post"
+                      action="{% url 'delete_review' review.id %}"
+                      style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit">Delete review</button>
+                </form>
+
+
+                <div id="review-edit-{{ review.id }}"
+                     style="display:none; margin-top:10px;">
+                    <form method="post"
+                          action="{% url 'edit_review' review.id %}">
                         {% csrf_token %}
-                        <div>Kommentar verfassen</div>
-                        <textarea name="text"></textarea>
-                        <br>
-                        <button type="submit">Kommentar speichern</button>
+                        <textarea name="text">{{ review.text }}</textarea>
+                        <button type="submit">Save edit</button>
                     </form>
                 </div>
+
+            {% endif %}
+
+            <hr>
+
+
+            <div class="comments">
+                {% for comment in review.comments.all %}
+                    <div class="comment">
+
+                        <b>{{ comment.user }}</b>: {{ comment.text }}
+                        <br>
+                        <small>{{ comment.created_at }}</small>
+
+                        <div>
+                            <span style="color: darkgreen">
+                                {{ comment.get_upvotes_count }}
+                            </span>
+                            <a href="{% url 'comment_vote' comment.id 'up' %}">↑</a>
+
+                            <span style="color: crimson">
+                                {{ comment.get_downvotes_count }}
+                            </span>
+                            <a href="{% url 'comment_vote' comment.id 'down' %}">↓</a>
+                        </div>
+
+                        {% if comment.user == user %}
+
+                            <button type="button"
+                                    onclick="toggleEdit({{ comment.id }})">
+                                Edit
+                            </button>
+
+                            <form method="post"
+                                  action="{% url 'delete_comment' comment.id %}"
+                                  style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit">Delete</button>
+                            </form>
+
+                            <div id="edit-{{ comment.id }}"
+                                 style="display:none; margin-top:8px;">
+                                <form method="post"
+                                      action="{% url 'edit_comment' comment.id %}">
+                                    {% csrf_token %}
+                                    <input type="text"
+                                           name="text"
+                                           value="{{ comment.text }}">
+                                    <button type="submit">Save edit</button>
+                                </form>
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+                {% endfor %}
+
+                <form method="post"
+                      action="{% url 'add_review_comment' review.id %}">
+                    {% csrf_token %}
+                    <textarea name="text"></textarea>
+                    <button type="submit">Kommentar speichern</button>
+                </form>
+
+            </div>
+        </div>
         {% endfor %}
     </div>
 
-    {% if user.is_authenticated %}
-        <form method="post">
-            {% csrf_token %}
 
-            <textarea name="text"></textarea>
-            <br>
-            <br>
-            <button type="submit" name="save_review">
-                save review
-            </button>
-        </form>
+    {% if user.is_authenticated %}
+    <form method="post">
+        {% csrf_token %}
+        <textarea name="text"></textarea>
+        <button type="submit" name="save_review">
+            save review
+        </button>
+    </form>
     {% endif %}
 
-
-    
-    
 </section>
+
+<script>
+function toggleEdit(id) {
+    const el = document.getElementById("edit-" + id);
+    el.style.display = (el.style.display === "none") ? "block" : "none";
+}
+
+function toggleReviewEdit(id) {
+    const el = document.getElementById("review-edit-" + id);
+    el.style.display = (el.style.display === "none") ? "block" : "none";
+}
+</script>
 
 {% endblock %}

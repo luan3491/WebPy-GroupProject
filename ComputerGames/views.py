@@ -9,6 +9,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
 from reportlab.lib.pagesizes import A4
 import io
+from django.contrib.auth.decorators import login_required
 
 
 # Class-based Views
@@ -125,6 +126,59 @@ def add_review_comment(request, review_id):
         ReviewComment.objects.create(
             review=review, user=request.user, text=request.POST.get("text")
         )
+
+    return redirect("game_detail", pk=review.game.id)
+
+@login_required
+def edit_comment(request, comment_id):
+    comment = get_object_or_404(ReviewComment, pk=comment_id)
+
+    if comment.user != request.user:
+        return redirect("game_detail", pk=comment.review.game.id)
+
+    if request.method == "POST":
+        text = request.POST.get("text")
+        if text:
+            comment.text = text
+            comment.save()
+
+    return redirect("game_detail", pk=comment.review.game.id)
+
+@login_required
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(ReviewComment, pk=comment_id)
+
+    if comment.user == request.user:
+        game_id = comment.review.game.id
+        comment.delete()
+        return redirect("game_detail", pk=game_id)
+
+    return redirect("game_detail", pk=comment.review.game.id)
+
+@login_required
+def edit_review(request, review_id):
+    review = get_object_or_404(Review, pk=review_id)
+
+    # only owner can edit
+    if review.user != request.user:
+        return redirect("game_detail", pk=review.game.id)
+
+    if request.method == "POST":
+        text = request.POST.get("text")
+        if text:
+            review.text = text
+            review.save()
+
+    return redirect("game_detail", pk=review.game.id)
+
+@login_required
+def delete_review(request, review_id):
+    review = get_object_or_404(Review, pk=review_id)
+
+    if review.user == request.user:
+        game_id = review.game.id
+        review.delete()
+        return redirect("game_detail", pk=game_id)
 
     return redirect("game_detail", pk=review.game.id)
 
