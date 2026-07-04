@@ -20,16 +20,24 @@
         </div>
     </nav>
 
-    <h1>{{ that_one_game.name }}</h1>
+    <div class="game-header">
 
-    {% for image in that_one_game.images.all %}
-        <img src="{{ image.image.url }}" alt="{{ image.caption }}" width="300">
-    {% endfor %}
+    <div class="game-title">
+        <h1>{{ that_one_game.name }}</h1>
+    </div>
+
+<div class="game-content">
+
+    <div class="game-images">
+        {% for image in that_one_game.images.all %}
+            <img src="{{ image.image.url }}" alt="{{ image.caption }}">
+        {% endfor %}
+    </div>
 
     <div class="game-info">
         <p>{{ that_one_game.description }}</p>
 
-        <p><strong>Genre:</strong> {{ that_one_game.get_game_type_display }}</p>
+        <p><strong>Spieltyp:</strong> {{ that_one_game.get_game_type_display }}</p>
         <p><strong>Betriebssystem:</strong> {{ that_one_game.get_operation_system_display }}</p>
         <p><strong>Genre:</strong> {{ that_one_game.get_genre_display }}</p>
         <p><strong>FSK:</strong> {{ that_one_game.get_fsk_display }}</p>
@@ -40,6 +48,8 @@
             </a>
         </p>
     </div>
+
+</div>
 
     <div class="price-container">
         <span class="price">{{ that_one_game.price }} €</span>
@@ -53,48 +63,64 @@
         </form>
         {% endif %}
     </div>
-
+</div>
 
     <div class="reviews">
         <h2>Reviews</h2>
 
         {% for review in that_one_game.review_set.all %}
-        <div class="review-box">
+<div class="review-box">
 
-            {% if review.user.profile_picture %}
-                <img src="{{ review.user.profile_picture.url }}"
-                     width="50"
-                     alt="{{ review.user.username }}">
-            {% endif %}
+    <div class="review-header">
 
-            <b>{{ review.user }}</b>: {{ review.text }}
-            <br>
-            <small>{{ review.created_at }}</small>
+        {% if review.user.profile_picture %}
+            <img class="review-user-img"
+                 src="{{ review.user.profile_picture.url }}"
+                 alt="{{ review.user.username }}">
+        {% endif %}
 
-            <p>
-                👍 {{ review.get_yes_count }} |
-                👎 {{ review.get_no_count }} |
-                😂 {{ review.get_funny_count }}
-            </p>
-
+        <div class="review-content">
             <div>
-                <a href="{% url 'review_vote' review.id 'Y' %}">yes</a>
-                <a href="{% url 'review_vote' review.id 'N' %}">no</a>
-                <a href="{% url 'review_vote' review.id 'F' %}">funny</a>
+                <span class="review-username">{{ review.user }}</span>
+                <span class="review-text">: {{ review.text }}</span>
             </div>
+
+            <small>{{ review.created_at }}</small>
+            <p class="review-question">Ist dieses Review hilfreich?</p>
+            <div class="review-votes">
+                <a href="{% url 'review_vote' review.id 'Y' %}">
+                    👍 yes ({{ review.get_yes_count }})
+                </a>
+
+                <span class="vote-separator">|</span>
+
+                <a href="{% url 'review_vote' review.id 'N' %}">
+                    👎 no ({{ review.get_no_count }})
+                </a>
+
+                <span class="vote-separator">|</span>
+
+                <a href="{% url 'review_vote' review.id 'F' %}">
+                    😂 funny ({{ review.get_funny_count }})
+                </a>
+            </div>
+        </div>
+
+    </div>
 
             {% if review.user == user %}
 
-                <button type="button"
+                <button type="button" class="btn-edit"
                         onclick="toggleReviewEdit({{ review.id }})">
                     Edit review
                 </button>
-
                 <form method="post"
                       action="{% url 'delete_review' review.id %}"
                       style="display:inline;">
                     {% csrf_token %}
-                    <button type="submit">Delete review</button>
+                    <button class="btn-delete" type="submit">
+                    Delete review
+                    </button>
                 </form>
 
 
@@ -104,7 +130,7 @@
                           action="{% url 'edit_review' review.id %}">
                         {% csrf_token %}
                         <textarea name="text">{{ review.text }}</textarea>
-                        <button type="submit">Save edit</button>
+                        <button class="btn-save" type="submit">Save edit</button>
                     </form>
                 </div>
 
@@ -117,58 +143,85 @@
                 {% for comment in review.comments.all %}
                     <div class="comment">
 
-                        <b>{{ comment.user }}</b>: {{ comment.text }}
-                        <br>
-                        <small>{{ comment.created_at }}</small>
+    <div class="comment-header">
 
-                        <div>
-                            <span style="color: darkgreen">
-                                {{ comment.get_upvotes_count }}
-                            </span>
-                            <a href="{% url 'comment_vote' comment.id 'up' %}">↑</a>
+        {% if comment.user.profile_picture %}
+            <img class="comment-user-img"
+                 src="{{ comment.user.profile_picture.url }}"
+                 alt="{{ comment.user.username }}">
+        {% endif %}
 
-                            <span style="color: crimson">
-                                {{ comment.get_downvotes_count }}
-                            </span>
-                            <a href="{% url 'comment_vote' comment.id 'down' %}">↓</a>
-                        </div>
+        <div class="comment-content">
 
-                        {% if comment.user == user %}
+            <div>
+                <span class="comment-username">{{ comment.user }}</span>
+                <span class="comment-text">: {{ comment.text }}</span>
+            </div>
 
-                            <button type="button"
-                                    onclick="toggleEdit({{ comment.id }})">
-                                Edit
-                            </button>
+            <small>{{ comment.created_at }}</small>
 
-                            <form method="post"
-                                  action="{% url 'delete_comment' comment.id %}"
-                                  style="display:inline;">
-                                {% csrf_token %}
-                                <button type="submit">Delete</button>
-                            </form>
+            <div class="comment-votes">
 
-                            <div id="edit-{{ comment.id }}"
-                                 style="display:none; margin-top:8px;">
-                                <form method="post"
-                                      action="{% url 'edit_comment' comment.id %}">
-                                    {% csrf_token %}
-                                    <input type="text"
-                                           name="text"
-                                           value="{{ comment.text }}">
-                                    <button type="submit">Save edit</button>
-                                </form>
-                            </div>
+                <a href="{% url 'comment_vote' comment.id 'up' %}">
+                    👍 up ({{ comment.get_upvotes_count }})
+                </a>
 
-                        {% endif %}
+                <span class="vote-separator">|</span>
 
-                    </div>
+                <a href="{% url 'comment_vote' comment.id 'down' %}">
+                    👎 down ({{ comment.get_downvotes_count }})
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% if comment.user == user %}
+
+        <button type="button"
+                class="btn-edit"
+                onclick="toggleEdit({{ comment.id }})">
+            Edit
+        </button>
+
+        <form method="post"
+              action="{% url 'delete_comment' comment.id %}"
+              style="display:inline;">
+            {% csrf_token %}
+            <button class="btn-delete" type="submit">
+                Delete
+            </button>
+        </form>
+
+        <div id="edit-{{ comment.id }}"
+             style="display:none; margin-top:8px;">
+            <form method="post"
+                  action="{% url 'edit_comment' comment.id %}">
+                {% csrf_token %}
+                <input type="text"
+                       name="text"
+                       value="{{ comment.text }}">
+                <button class="btn-save" type="submit">
+                    Save edit
+                </button>
+            </form>
+        </div>
+
+    {% endif %}
+
+</div>
                 {% endfor %}
 
                 <form method="post"
                       action="{% url 'add_review_comment' review.id %}">
                     {% csrf_token %}
                     <textarea name="text"></textarea>
-                    <button type="submit">Kommentar speichern</button>
+                    <br>
+                    <button class="btn-save" type="submit">
+                        save comment
+                    </button>
                 </form>
 
             </div>
@@ -178,19 +231,15 @@
 
 
     {% if user.is_authenticated %}
-
     {% if not user_review %}
         <form method="post">
             {% csrf_token %}
             <textarea name="text"></textarea>
-            <button type="submit" name="save_review">
+            <button class="btn-save" type="submit" name="save_review">
                 Save review
             </button>
         </form>
-    {% else %}
-        <p><strong>You have already reviewed this game. Only one review can be written per game per user.</strong></p>
     {% endif %}
-
     {% endif %}
 
 </section>
