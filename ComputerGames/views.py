@@ -87,15 +87,32 @@ def game_detail(request, pk):
             text = request.POST.get("text")
 
             if text:
-                Review.objects.create(
+                already_reviewed = Review.objects.filter(
                     game=that_one_game,
-                    user=request.user,
-                    text=text
-                )
+                    user=request.user
+                ).exists()
+
+                if not already_reviewed:
+                    Review.objects.create(
+                        game=that_one_game,
+                        user=request.user,
+                        text=text
+                    )
 
             return redirect("game_detail", pk=pk)
 
-    return render(request, "gamepage.html", {"that_one_game": that_one_game})
+    user_review = None
+
+    if request.user.is_authenticated:
+        user_review = Review.objects.filter(
+            game=that_one_game,
+            user=request.user
+        ).first()
+
+    return render(request, "gamepage.html", {
+        "that_one_game": that_one_game,
+        "user_review": user_review,
+    })
 
 
 def comment_vote(request, comment_id, up_or_down):

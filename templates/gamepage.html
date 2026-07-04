@@ -178,13 +178,19 @@
 
 
     {% if user.is_authenticated %}
-    <form method="post">
-        {% csrf_token %}
-        <textarea name="text"></textarea>
-        <button type="submit" name="save_review">
-            save review
-        </button>
-    </form>
+
+    {% if not user_review %}
+        <form method="post">
+            {% csrf_token %}
+            <textarea name="text"></textarea>
+            <button type="submit" name="save_review">
+                Save review
+            </button>
+        </form>
+    {% else %}
+        <p><strong>You have already reviewed this game. Only one review can be written per game per user.</strong></p>
+    {% endif %}
+
     {% endif %}
 
 </section>
