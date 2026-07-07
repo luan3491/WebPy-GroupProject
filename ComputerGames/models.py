@@ -85,8 +85,20 @@ class GameImage(models.Model):
 
 
 class Review(models.Model):
+    STARS = [
+        (1, "1 Star"),
+        (2, "2 Stars"),
+        (3, "3 Stars"),
+        (4, "4 Stars"),
+        (5, "5 Stars"),
+    ]
+
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    stars = models.IntegerField(
+        choices=STARS,
+        default= 3
+    )
     text = models.TextField(max_length=1000)
     created_at = models.DateTimeField(auto_now_add=True)
 
