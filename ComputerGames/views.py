@@ -1,7 +1,7 @@
 # Create your views here.
 from django.contrib.auth import get_user_model
 from django.shortcuts import render, get_object_or_404
-from .forms import GameImageForm, GameForm
+from .forms import GameImageForm, GameForm, ReviewForm
 from .models import Game, Review, ReviewComment, ReviewVote, CommentVote
 from .models import Report
 from django.shortcuts import redirect
@@ -15,7 +15,7 @@ from django.contrib.auth.decorators import login_required
 from Useradmin.forms import UserForm
 
 
-def game_pdf(request,pk):
+def game_pdf(request, pk):
     game = Game.objects.get(pk=pk)
 
     buffer = io.BytesIO()
@@ -64,33 +64,38 @@ def game_detail(request, pk):
             return redirect("cart")
 
         elif "save_review" in request.POST:
-            text = request.POST.get("text")
+            already_reviewed = Review.objects.filter(
+                game=that_one_game, user=request.user
+            ).exists()
 
-            if text:
-                already_reviewed = Review.objects.filter(
-                    game=that_one_game,
-                    user=request.user
-                ).exists()
+            if not already_reviewed:
+                review_form = ReviewForm(request.POST)
 
-                if not already_reviewed:
-                    Review.objects.create(
-                        game=that_one_game,
-                        user=request.user,
-                        text=text
-                    )
+                if review_form.is_valid():
+                    review = review_form.save(commit=False)
+                    review.game = that_one_game
+                    review.user = request.user
+                    review.save()
+
             return redirect("game_detail", pk=pk)
+
     user_review = None
 
     if request.user.is_authenticated:
         user_review = Review.objects.filter(
-            game=that_one_game,
-            user=request.user
+            game=that_one_game, user=request.user
         ).first()
 
-    return render(request, "gamepage.html", {
-        "that_one_game": that_one_game,
-        "user_review": user_review,
-    })
+    return render(
+        request,
+        "gamepage.html",
+        {
+            "that_one_game": that_one_game,
+            "user_review": user_review,
+            "review_form": ReviewForm(),
+        },
+    )
+
 
 @login_required
 def comment_vote(request, comment_id, up_or_down):
@@ -108,6 +113,7 @@ def comment_vote(request, comment_id, up_or_down):
         vote.save()
     return redirect("game_detail", pk=comment.review.game.id)
 
+
 @login_required
 def add_review_comment(request, review_id):
     review = get_object_or_404(Review, pk=review_id)
@@ -118,6 +124,7 @@ def add_review_comment(request, review_id):
         )
 
     return redirect("game_detail", pk=review.game.id)
+
 
 @login_required
 def edit_comment(request, comment_id):
@@ -134,6 +141,7 @@ def edit_comment(request, comment_id):
 
     return redirect("game_detail", pk=comment.review.game.id)
 
+
 @login_required
 def delete_comment(request, comment_id):
     comment = get_object_or_404(ReviewComment, pk=comment_id)
@@ -149,7 +157,7 @@ def delete_comment(request, comment_id):
 @login_required
 def delete_comment_cs(request, comment_id):
     comment = get_object_or_404(ReviewComment, pk=comment_id)
-    if request.user.user_type == "CS" :
+    if request.user.user_type == "CS":
         game_id = comment.review.game.id
         comment.delete()
         return redirect("game_detail", pk=game_id)
@@ -160,17 +168,17 @@ def delete_comment_cs(request, comment_id):
 def edit_review(request, review_id):
     review = get_object_or_404(Review, pk=review_id)
 
-    # only owner can edit
     if review.user != request.user:
         return redirect("game_detail", pk=review.game.id)
 
     if request.method == "POST":
-        text = request.POST.get("text")
-        if text:
-            review.text = text
-            review.save()
+        review_form = ReviewForm(request.POST, instance=review)
+
+        if review_form.is_valid():
+            review_form.save()
 
     return redirect("game_detail", pk=review.game.id)
+
 
 @login_required
 def delete_review(request, review_id):
@@ -183,14 +191,16 @@ def delete_review(request, review_id):
 
     return redirect("game_detail", pk=review.game.id)
 
+
 @login_required
 def delete_review_cs(request, review_id):
     review = get_object_or_404(Review, pk=review_id)
-    if request.user.user_type == "CS" :
+    if request.user.user_type == "CS":
         game_id = review.game.id
         review.delete()
         return redirect("game_detail", pk=game_id)
     return redirect("game_detail", pk=review.game.id)
+
 
 @login_required
 def review_vote(request, review_id, vote_type):
@@ -214,7 +224,6 @@ def home(request):
     return render(request, "homepage.html", {"all_the_games": all_the_games})
 
 
-
 @login_required
 def create_game(request):
     if request.user.user_type != "CS":
@@ -231,10 +240,14 @@ def create_game(request):
     else:
         form = GameForm()
         image_form = GameImageForm()
-    return render(request, "new_game.html", {
-        "form": form,
-        "image_form": image_form,
-    })
+    return render(
+        request,
+        "new_game.html",
+        {
+            "form": form,
+            "image_form": image_form,
+        },
+    )
 
 
 @login_required
@@ -245,11 +258,15 @@ def cs(request):
     users = User.objects.filter(user_type="CU")
     all_the_games = Game.objects.all()
     alle_the_reports = Report.objects.all()
-    return render(request, "cs_details.html", {
-        "all_the_users": users,
-        "all_the_games": all_the_games,
-        "alle_the_reports": alle_the_reports,
-    })
+    return render(
+        request,
+        "cs_details.html",
+        {
+            "all_the_users": users,
+            "all_the_games": all_the_games,
+            "alle_the_reports": alle_the_reports,
+        },
+    )
 
 
 @login_required
@@ -265,10 +282,15 @@ def cs_user_detail(request, pk):
             return redirect("cs_page")
     else:
         form = UserForm(instance=user_detail)
-    return render(request, "cs_user_detail.html", {
-        "form": form,
-        "user_detail": user_detail,
-    })
+    return render(
+        request,
+        "cs_user_detail.html",
+        {
+            "form": form,
+            "user_detail": user_detail,
+        },
+    )
+
 
 @login_required
 def cs_game_detail(request, pk):
@@ -278,11 +300,7 @@ def cs_game_detail(request, pk):
     image = game.images.first()
     if request.method == "POST":
         form = GameForm(request.POST, instance=game)
-        image_form = GameImageForm(
-            request.POST,
-            request.FILES,
-            instance=image
-        )
+        image_form = GameImageForm(request.POST, request.FILES, instance=image)
         if form.is_valid() and image_form.is_valid():
             game = form.save()
             game_image = image_form.save(commit=False)
@@ -292,13 +310,15 @@ def cs_game_detail(request, pk):
     else:
         form = GameForm(instance=game)
         image_form = GameImageForm(instance=image)
-    return render(request, "cs_game_detail.html", {
-        "form": form,
-        "image_form": image_form,
-        "game": game,
-    })
-
-
+    return render(
+        request,
+        "cs_game_detail.html",
+        {
+            "form": form,
+            "image_form": image_form,
+            "game": game,
+        },
+    )
 
 
 @login_required
@@ -309,5 +329,3 @@ def report_review(request, review_id):
         user=request.user,
     )
     return redirect("game_detail", pk=review.game.id)
-
-
