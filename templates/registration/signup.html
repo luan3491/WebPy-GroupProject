@@ -1,23 +1,35 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}Signup{% endblock %}
+{% block title %}
+{% trans "Signup" %}
+{% endblock %}
 
 {% block content %}
-    <h1>Signup</h1>
 
-    <p>
-        Aus deinem Anzeigenamen wird automatisch ein eindeutiger
-        Accountname mit vier Ziffern erstellt.
-    </p>
+<h1>{% trans "Signup" %}</h1>
 
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Signup</button>
-    </form>
+<p>
+{% blocktrans %}
+Your display name will automatically generate a unique account name with four digits.
+{% endblocktrans %}
+</p>
 
-    <p>
-        Bereits registriert?
-        <a href="{% url 'login' %}">Login</a>
-    </p>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit">
+        {% trans "Signup" %}
+    </button>
+</form>
+
+<p>
+{% trans "Already registered?" %}
+
+<a href="{% url 'login' %}">
+    {% trans "Login" %}
+</a>
+</p>
+
 {% endblock %}

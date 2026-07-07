@@ -1,13 +1,20 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css"
+<link rel="stylesheet"
+      type="text/css"
       href="{% static 'style.css' %}">
 {% endblock %}
-{% block title %}Games Library{% endblock %}
+
+{% block title %}
+{% trans "Games Library" %}
+{% endblock %}
+
 {% block content %}
-<h2>Your games:</h2>
+
+<h2>{% trans "Your games:" %}</h2>
 
 <ul>
     {% for game in all_the_games %}
@@ -26,7 +33,9 @@
         </li>
     {% endfor %}
 </ul>
-    <a href="{% url 'home' %}">
-    Zurück zum Shop
-    </a>
+
+<a href="{% url 'home' %}">
+    {% trans "Back to Shop" %}
+</a>
+
 {% endblock %}

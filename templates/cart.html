@@ -1,38 +1,62 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-    {% block title %}Warenkorb{% endblock %}
+{% block title %}
+{% trans "Shopping Cart" %}
+{% endblock %}
 
-    {% block content %}
-    <a class="btn" href="{% url 'home' %}">Zurück zum Shop</a>
-    <h2>Warenkorb</h2>
+{% block content %}
 
-    {% if shopping_cart_is_empty %}
-        <p>Dein Warenkorb ist leer.</p>
-    {% else %}
+<a class="btn" href="{% url 'home' %}">
+    {% trans "Back to Shop" %}
+</a>
 
-        {% for item in shopping_cart_items %}
-            <p>
-                <strong>{{ item.product_name }}</strong><br>
-                Preis: {{ item.price }} €<br>
-                Anzahl: {{ item.quantity }}
-            </p>
-            <form method="post" action="{% url 'change_quantity' item.id 'minus' %}">
-                {% csrf_token %}
-                <button type="submit">-</button>
-            </form>
-            <form method="post" action="{% url 'change_quantity' item.id 'plus' %}">
-                {% csrf_token %}
-                <button type="submit">+</button>
-            </form>
-            <hr>
-        {% endfor %}
+<h2>{% trans "Shopping Cart" %}</h2>
 
-        <p><strong>Gesamt:</strong> {{ total }} €</p>
+{% if shopping_cart_is_empty %}
 
-        <form method="POST">
-                {% csrf_token %}
-                <button type="submit" name="pay">Mit Kreditkarte bezahlen</button>
-            </form>
-    {% endif %}
-        <br>
-    {% endblock %}
+    <p>{% trans "Your shopping cart is empty." %}</p>
+
+{% else %}
+
+    {% for item in shopping_cart_items %}
+        <p>
+            <strong>{{ item.product_name }}</strong><br>
+
+            {% trans "Price:" %} {{ item.price }} €<br>
+
+            {% trans "Quantity:" %} {{ item.quantity }}
+        </p>
+
+        <form method="post"
+              action="{% url 'change_quantity' item.id 'minus' %}">
+            {% csrf_token %}
+            <button type="submit">-</button>
+        </form>
+
+        <form method="post"
+              action="{% url 'change_quantity' item.id 'plus' %}">
+            {% csrf_token %}
+            <button type="submit">+</button>
+        </form>
+
+        <hr>
+    {% endfor %}
+
+    <p>
+        <strong>{% trans "Total:" %}</strong>
+        {{ total }} €
+    </p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" name="pay">
+            {% trans "Pay with credit card" %}
+        </button>
+    </form>
+
+{% endif %}
+
+<br>
+
+{% endblock %}
