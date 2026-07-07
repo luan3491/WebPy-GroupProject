@@ -12,20 +12,24 @@
 <section class="container">
     <nav class="navbar">
         <div class="navbar--left-section">
+            {% if user.user_type == "CU" %}
             <a class="btn" href="{% url 'game_list' %}">
                 {% trans "Back to Library" %}
             </a>
+            {% endif %}
 
             <a class="btn" href="{% url 'home' %}">
                 {% trans "Back to Shop" %}
             </a>
         </div>
 
+        {% if user.user_type == "CU" %}
         <div class="navbar--right-section">
             <a class="btn" href="{% url 'cart' %}">
                 {% trans "Shopping Cart" %}
             </a>
         </div>
+        {% endif %}
     </nav>
 
     <div class="game-header">
@@ -53,6 +57,12 @@
                     <a class="btn btn--secondary" href="{% url 'game_pdf' that_one_game.id %}">
                         {% trans "Download PDF" %}
                     </a>
+                    {% if user.is_authenticated and user.user_type == "CS" %}
+                        <a class="btn btn--secondary"
+                           href="{% url 'cs_game_detail' that_one_game.id %}">
+                            {% trans "Edit Game" %}
+                        </a>
+                    {% endif %}
                 </p>
             </div>
         </div>
@@ -60,7 +70,7 @@
         <div class="price-container">
             <span class="price">{{ that_one_game.price }} €</span>
 
-            {% if user.is_authenticated %}
+            {% if user.is_authenticated and user.user_type == "CU" %}
             <form method="post" class="form-inline">
                 {% csrf_token %}
                 <button class="btn" type="submit" name="add_to_cart">
@@ -112,6 +122,19 @@
                         <a href="{% url 'review_vote' review.id 'F' %}">
                             😂 {% trans "Funny" %} ({{ review.get_funny_count }})
                         </a>
+                        {% if user.user_type == "CU" and review.user != user %}
+                            <span class="vote-separator">|</span>
+                            <form method="post"
+                                  action="{% url 'report_review' review.id %}"
+                                  style="display:inline;">
+
+                                {% csrf_token %}
+
+                                <button class="btn-save" type="submit">
+                                    {% trans "Report" %}
+                                </button>
+                            </form>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -147,6 +170,18 @@
                         </button>
                     </form>
                 </div>
+
+            {% elif user.is_authenticated and user.user_type == "CS" %}
+                <form method="post"
+                      action="{% url 'delete_review_cs' review.id %}"
+                      style="display:inline;">
+
+                    {% csrf_token %}
+
+                    <button class="btn-delete" type="submit">
+                        {% trans "Delete Review" %}
+                    </button>
+                </form>
 
             {% endif %}
 
@@ -224,31 +259,41 @@
                                 </button>
                             </form>
                         </div>
+
+                    {% elif user.is_authenticated and user.user_type == "CS" %}
+                        <form method="post"
+                              action="{% url 'delete_comment_cs' comment.id %}"
+                              style="display:inline;">
+
+                            {% csrf_token %}
+
+                            <button class="btn-delete" type="submit">
+                                {% trans "Delete" %}
+                            </button>
+                        </form>
                     {% endif %}
                 </div>
 
                 {% endfor %}
 
-                <form method="post"
-                      action="{% url 'add_review_comment' review.id %}">
-
+                {% if user.user_type == "CU" %}
+                    <form method="post" action="{% url 'add_review_comment' review.id %}">
                     {% csrf_token %}
 
                     <textarea name="text"></textarea>
-
                     <br>
-
                     <button class="btn-save" type="submit">
                         {% trans "Save Comment" %}
                     </button>
                 </form>
+                {% endif %}
             </div>
         </div>
         {% endfor %}
     </div>
 
-    {% if user.is_authenticated %}
-        {% if not user_review %}
+    {% if user.is_authenticated and user.user_type == "CU" %}
+    {% if not user_review %}
             <form method="post">
                 {% csrf_token %}
 

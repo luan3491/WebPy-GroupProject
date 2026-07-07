@@ -1,18 +1,24 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
 
-<h2>Benutzer bearbeiten</h2>
+<h2>{% trans "Edit User" %}</h2>
 
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
+
     {{ form.as_p }}
+
     <button class="btn" type="submit">
-        Speichern
+        {% trans "Save" %}
     </button>
 </form>
+
 <br>
+
 <a class="btn" href="{% url 'cs_page' %}">
-    Zurück
+    {% trans "Back" %}
 </a>
+
 {% endblock %}

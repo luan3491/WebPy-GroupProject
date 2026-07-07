@@ -1,26 +1,27 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
 
-<h2>Spiel bearbeiten</h2>
+<h2>{% trans "Edit Game" %}</h2>
 
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
 
     {{ form.as_p }}
 
-    <h3>Bild</h3>
+    <h3>{% trans "Image" %}</h3>
     {{ image_form.as_p }}
 
     <button class="btn" type="submit">
-        Speichern
+        {% trans "Save" %}
     </button>
 </form>
 
 <br>
 
 <a class="btn" href="{% url 'game_detail' game.id %}">
-    Zurück
+    {% trans "Back" %}
 </a>
 
 {% endblock %}

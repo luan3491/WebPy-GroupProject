@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-07 19:49+0200\n"
+"POT-Creation-Date: 2026-07-07 23:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,20 +17,21 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
 #: .\templates\base.html:16
 msgid "Base Title"
 msgstr "Base Title"
 
-#: .\templates\base.html:69
+#: .\templates\base.html:73
 msgid "Base Block"
 msgstr "Base Block"
 
 #: .\templates\cart.html:5 .\templates\cart.html:14
-#: .\templates\gamepage.html:26
+#: .\templates\gamepage.html:29
 msgid "Shopping Cart"
 msgstr "Warenkorb"
 
-#: .\templates\cart.html:11 .\templates\gamepage.html:20
+#: .\templates\cart.html:11 .\templates\gamepage.html:22
 #: .\templates\library.html:38 .\templates\paymentterminal.html:42
 msgid "Back to Shop"
 msgstr "Zurück zum Shop"
@@ -55,91 +56,139 @@ msgstr "Gesamt:"
 msgid "Pay with credit card"
 msgstr "Mit Kreditkarte bezahlen"
 
+#: .\templates\cs_details.html:6 .\templates\new_game.html:10
+msgid "Add Game"
+msgstr "Spiel hinzufügen"
+
+#: .\templates\cs_details.html:9
+msgid "All Customers"
+msgstr "Alle Kunden"
+
+#: .\templates\cs_details.html:19
+msgid "All Games"
+msgstr "Alle Spiele"
+
+#: .\templates\cs_details.html:29
+msgid "All Reports"
+msgstr "Alle Berichte"
+
+#: .\templates\cs_details.html:33
+msgid "reported"
+msgstr "gemeldet"
+
+#: .\templates\cs_game_detail.html:6 .\templates\gamepage.html:63
+#, fuzzy
+#| msgid "Edit"
+msgid "Edit Game"
+msgstr "Bearbeiten"
+
+#: .\templates\cs_game_detail.html:13 .\templates\new_game.html:43
+msgid "Image"
+msgstr "Bild"
+
+#: .\templates\cs_game_detail.html:17 .\templates\cs_user_detail.html:14
+msgid "Save"
+msgstr "Speichern"
+
+#: .\templates\cs_game_detail.html:24 .\templates\cs_user_detail.html:21
+msgid "Back"
+msgstr "Zurück"
+
+#: .\templates\cs_user_detail.html:6
+#, fuzzy
+#| msgid "Edit"
+msgid "Edit User"
+msgstr "Bearbeiten"
+
 #: .\templates\gamepage.html:9
 msgid "Game Information"
 msgstr "Spielinformationen"
 
-#: .\templates\gamepage.html:16
+#: .\templates\gamepage.html:17
 msgid "Back to Library"
 msgstr "Zurück zur Bibliothek"
 
-#: .\templates\gamepage.html:47
+#: .\templates\gamepage.html:51 .\templates\new_game.html:28
 msgid "Game Type"
 msgstr "Spieltyp"
 
-#: .\templates\gamepage.html:48
+#: .\templates\gamepage.html:52 .\templates\new_game.html:40
 msgid "Operating System"
 msgstr "Betriebssystem"
 
-#: .\templates\gamepage.html:49
+#: .\templates\gamepage.html:53 .\templates\new_game.html:31
 msgid "Genre"
 msgstr "Genre"
 
-#: .\templates\gamepage.html:50
+#: .\templates\gamepage.html:54 .\templates\new_game.html:34
 msgid "Age Rating"
 msgstr "Altersfreigabe"
 
-#: .\templates\gamepage.html:54
+#: .\templates\gamepage.html:58
 msgid "Download PDF"
 msgstr "PDF herunterladen"
 
-#: .\templates\gamepage.html:67
+#: .\templates\gamepage.html:77
 msgid "Add to Cart"
 msgstr "in den Warenkorb legen"
 
-#: .\templates\gamepage.html:75
+#: .\templates\gamepage.html:85
 msgid "Reviews"
 msgstr "Bewertung"
 
-#: .\templates\gamepage.html:96
+#: .\templates\gamepage.html:106
 msgid "Was this review helpful?"
 msgstr "War diese Bewertung hilfreich?"
 
-#: .\templates\gamepage.html:101
+#: .\templates\gamepage.html:111
 msgid "Yes"
 msgstr "Ja"
 
-#: .\templates\gamepage.html:107
+#: .\templates\gamepage.html:117
 msgid "No"
 msgstr "Nein"
 
-#: .\templates\gamepage.html:113
+#: .\templates\gamepage.html:123
 msgid "Funny"
 msgstr "Lustig"
 
-#: .\templates\gamepage.html:123
+#: .\templates\gamepage.html:134
+msgid "Report"
+msgstr "Melden"
+
+#: .\templates\gamepage.html:146
 msgid "Edit Review"
 msgstr "Bewertung bearbeiten"
 
-#: .\templates\gamepage.html:131
+#: .\templates\gamepage.html:154 .\templates\gamepage.html:182
 msgid "Delete Review"
 msgstr "Bewertung löschen"
 
-#: .\templates\gamepage.html:146 .\templates\gamepage.html:223
+#: .\templates\gamepage.html:169 .\templates\gamepage.html:258
 msgid "Save Changes"
 msgstr "Änderungen speichern"
 
-#: .\templates\gamepage.html:179
+#: .\templates\gamepage.html:214
 msgid "Up"
 msgstr "Up"
 
-#: .\templates\gamepage.html:185
+#: .\templates\gamepage.html:220
 msgid "Down"
 msgstr "Down"
 
-#: .\templates\gamepage.html:196
+#: .\templates\gamepage.html:231
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: .\templates\gamepage.html:206
+#: .\templates\gamepage.html:241 .\templates\gamepage.html:271
 msgid "Delete"
 msgstr "Löschen"
 
-#: .\templates\gamepage.html:242
+#: .\templates\gamepage.html:286
 msgid "Save Comment"
 msgstr "Kommentar speichern"
 
-#: .\templates\gamepage.html:261
+#: .\templates\gamepage.html:306
 msgid "Save Review"
 msgstr "Bewertung speichern"
 
@@ -151,11 +200,15 @@ msgstr "Startseite"
 msgid "Home"
 msgstr "Home"
 
-#: .\templates\homepage.html:23 .\templates\paymentterminal.html:19
+#: .\templates\homepage.html:24 .\templates\paymentterminal.html:19
 msgid "Library"
 msgstr "Bibliothek"
 
-#: .\templates\homepage.html:29
+#: .\templates\homepage.html:31
+msgid "CS Page"
+msgstr ""
+
+#: .\templates\homepage.html:38
 #, python-format
 msgid ""
 "\n"
@@ -163,30 +216,30 @@ msgid ""
 "            "
 msgstr ""
 
-#: .\templates\homepage.html:38
+#: .\templates\homepage.html:47
 msgid "Logout"
 msgstr "Abmelden"
 
-#: .\templates\homepage.html:48
+#: .\templates\homepage.html:56
 msgid "Shop"
 msgstr "Shop"
 
-#: .\templates\homepage.html:66
+#: .\templates\homepage.html:73
 msgid "No image available"
 msgstr "Kein Bild verfügbar"
 
-#: .\templates\homepage.html:81
+#: .\templates\homepage.html:88
 msgid "You are not logged in."
 msgstr "Sie sind nicht angemeldet."
 
-#: .\templates\homepage.html:85 .\templates\registration\login.html:5
+#: .\templates\homepage.html:89 .\templates\registration\login.html:5
 #: .\templates\registration\login.html:10
 #: .\templates\registration\login.html:31
 #: .\templates\registration\signup.html:31
 msgid "Login"
 msgstr "Login"
 
-#: .\templates\homepage.html:91 .\templates\registration\login.html:40
+#: .\templates\homepage.html:90 .\templates\registration\login.html:40
 #: .\templates\registration\signup.html:5
 #: .\templates\registration\signup.html:10
 #: .\templates\registration\signup.html:23
@@ -201,6 +254,30 @@ msgstr "Spielebibliothek"
 msgid "Your games:"
 msgstr "Deine Spiele:"
 
+#: .\templates\new_game.html:17
+msgid "New Game"
+msgstr "Neues Spiel"
+
+#: .\templates\new_game.html:22
+msgid "Name"
+msgstr "Name"
+
+#: .\templates\new_game.html:25
+msgid "Description"
+msgstr "Beschreibung"
+
+#: .\templates\new_game.html:37
+#, fuzzy
+#| msgid "Price:"
+msgid "Price"
+msgstr "Preis:"
+
+#: .\templates\new_game.html:49
+#, fuzzy
+#| msgid "Save Changes"
+msgid "Save Game"
+msgstr "Änderungen speichern"
+
 #: .\templates\paymentterminal.html:5 .\templates\paymentterminal.html:10
 msgid "Payment"
 msgstr "Zahlung"
@@ -212,7 +289,8 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"    Vielen Dank für Ihre Bestellung. Sie finden das Spiel in Ihrer Bibliothek.\n"
+"    Vielen Dank für Ihre Bestellung. Sie finden das Spiel in Ihrer "
+"Bibliothek.\n"
 "    "
 
 #: .\templates\paymentterminal.html:35
@@ -234,8 +312,8 @@ msgid ""
 "four digits.\n"
 msgstr ""
 "\n"
-"Aus Ihrem Anzeigenamen wird automatisch ein eindeutiger Kontoname mit "
-"vier Ziffern generiert.\n"
+"Aus Ihrem Anzeigenamen wird automatisch ein eindeutiger Kontoname mit vier "
+"Ziffern generiert.\n"
 
 #: .\templates\registration\signup.html:28
 msgid "Already registered?"
