@@ -1,0 +1,242 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-07 19:49+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: .\templates\base.html:16
+msgid "Base Title"
+msgstr "Base Title"
+
+#: .\templates\base.html:69
+msgid "Base Block"
+msgstr "Base Block"
+
+#: .\templates\cart.html:5 .\templates\cart.html:14
+#: .\templates\gamepage.html:26
+msgid "Shopping Cart"
+msgstr "Warenkorb"
+
+#: .\templates\cart.html:11 .\templates\gamepage.html:20
+#: .\templates\library.html:38 .\templates\paymentterminal.html:42
+msgid "Back to Shop"
+msgstr "Zurück zum Shop"
+
+#: .\templates\cart.html:18
+msgid "Your shopping cart is empty."
+msgstr "Ihr Warenkorb ist leer."
+
+#: .\templates\cart.html:26
+msgid "Price:"
+msgstr "Preis:"
+
+#: .\templates\cart.html:28
+msgid "Quantity:"
+msgstr "Menge:"
+
+#: .\templates\cart.html:47
+msgid "Total:"
+msgstr "Gesamt:"
+
+#: .\templates\cart.html:54
+msgid "Pay with credit card"
+msgstr "Mit Kreditkarte bezahlen"
+
+#: .\templates\gamepage.html:9
+msgid "Game Information"
+msgstr "Spielinformationen"
+
+#: .\templates\gamepage.html:16
+msgid "Back to Library"
+msgstr "Zurück zur Bibliothek"
+
+#: .\templates\gamepage.html:47
+msgid "Game Type"
+msgstr "Spieltyp"
+
+#: .\templates\gamepage.html:48
+msgid "Operating System"
+msgstr "Betriebssystem"
+
+#: .\templates\gamepage.html:49
+msgid "Genre"
+msgstr "Genre"
+
+#: .\templates\gamepage.html:50
+msgid "Age Rating"
+msgstr "Altersfreigabe"
+
+#: .\templates\gamepage.html:54
+msgid "Download PDF"
+msgstr "PDF herunterladen"
+
+#: .\templates\gamepage.html:67
+msgid "Add to Cart"
+msgstr "in den Warenkorb legen"
+
+#: .\templates\gamepage.html:75
+msgid "Reviews"
+msgstr "Bewertung"
+
+#: .\templates\gamepage.html:96
+msgid "Was this review helpful?"
+msgstr "War diese Bewertung hilfreich?"
+
+#: .\templates\gamepage.html:101
+msgid "Yes"
+msgstr "Ja"
+
+#: .\templates\gamepage.html:107
+msgid "No"
+msgstr "Nein"
+
+#: .\templates\gamepage.html:113
+msgid "Funny"
+msgstr "Lustig"
+
+#: .\templates\gamepage.html:123
+msgid "Edit Review"
+msgstr "Bewertung bearbeiten"
+
+#: .\templates\gamepage.html:131
+msgid "Delete Review"
+msgstr "Bewertung löschen"
+
+#: .\templates\gamepage.html:146 .\templates\gamepage.html:223
+msgid "Save Changes"
+msgstr "Änderungen speichern"
+
+#: .\templates\gamepage.html:179
+msgid "Up"
+msgstr "Up"
+
+#: .\templates\gamepage.html:185
+msgid "Down"
+msgstr "Down"
+
+#: .\templates\gamepage.html:196
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: .\templates\gamepage.html:206
+msgid "Delete"
+msgstr "Löschen"
+
+#: .\templates\gamepage.html:242
+msgid "Save Comment"
+msgstr "Kommentar speichern"
+
+#: .\templates\gamepage.html:261
+msgid "Save Review"
+msgstr "Bewertung speichern"
+
+#: .\templates\homepage.html:6
+msgid "Homepage"
+msgstr "Startseite"
+
+#: .\templates\homepage.html:18
+msgid "Home"
+msgstr "Home"
+
+#: .\templates\homepage.html:23 .\templates\paymentterminal.html:19
+msgid "Library"
+msgstr "Bibliothek"
+
+#: .\templates\homepage.html:29
+#, python-format
+msgid ""
+"\n"
+"            Hello %(name)s!\n"
+"            "
+msgstr ""
+
+#: .\templates\homepage.html:38
+msgid "Logout"
+msgstr "Abmelden"
+
+#: .\templates\homepage.html:48
+msgid "Shop"
+msgstr "Shop"
+
+#: .\templates\homepage.html:66
+msgid "No image available"
+msgstr "Kein Bild verfügbar"
+
+#: .\templates\homepage.html:81
+msgid "You are not logged in."
+msgstr "Sie sind nicht angemeldet."
+
+#: .\templates\homepage.html:85 .\templates\registration\login.html:5
+#: .\templates\registration\login.html:10
+#: .\templates\registration\login.html:31
+#: .\templates\registration\signup.html:31
+msgid "Login"
+msgstr "Login"
+
+#: .\templates\homepage.html:91 .\templates\registration\login.html:40
+#: .\templates\registration\signup.html:5
+#: .\templates\registration\signup.html:10
+#: .\templates\registration\signup.html:23
+msgid "Signup"
+msgstr "Anmelden"
+
+#: .\templates\library.html:12
+msgid "Games Library"
+msgstr "Spielebibliothek"
+
+#: .\templates\library.html:17
+msgid "Your games:"
+msgstr "Deine Spiele:"
+
+#: .\templates\paymentterminal.html:5 .\templates\paymentterminal.html:10
+msgid "Payment"
+msgstr "Zahlung"
+
+#: .\templates\paymentterminal.html:14
+msgid ""
+"\n"
+"    Thank you for your order. You can find the game in your Library.\n"
+"    "
+msgstr ""
+"\n"
+"    Vielen Dank für Ihre Bestellung. Sie finden das Spiel in Ihrer Bibliothek.\n"
+"    "
+
+#: .\templates\paymentterminal.html:35
+msgid "Pay"
+msgstr "Bezahlen"
+
+#: .\templates\registration\login.html:19
+msgid "Log in with your account."
+msgstr "Log in with your account"
+
+#: .\templates\registration\login.html:37
+msgid "Don't have an account?"
+msgstr "Sie haben noch kein Konto?"
+
+#: .\templates\registration\signup.html:13
+msgid ""
+"\n"
+"Your display name will automatically generate a unique account name with "
+"four digits.\n"
+msgstr ""
+"\n"
+"Aus Ihrem Anzeigenamen wird automatisch ein eindeutiger Kontoname mit "
+"vier Ziffern generiert.\n"
+
+#: .\templates\registration\signup.html:28
+msgid "Already registered?"
+msgstr "Bereits registriert?"

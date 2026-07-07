@@ -1,136 +1,150 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block css %}
 <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 {% endblock %}
 
-{% block title %}Computer Spiel Infos{% endblock %}
+{% block title %}{% trans "Game Information" %}{% endblock %}
 
 {% block content %}
 <section class="container">
-
     <nav class="navbar">
         <div class="navbar--left-section">
-            <a class="btn" href="{% url 'game_list' %}">Zurück zur Spielenliste</a>
-            <a class="btn" href="{% url 'home' %}">Zurück zum Shop</a>
+            <a class="btn" href="{% url 'game_list' %}">
+                {% trans "Back to Library" %}
+            </a>
+
+            <a class="btn" href="{% url 'home' %}">
+                {% trans "Back to Shop" %}
+            </a>
         </div>
+
         <div class="navbar--right-section">
-            <a class="btn" href="{% url 'cart' %}">zum Warenkorb</a>
+            <a class="btn" href="{% url 'cart' %}">
+                {% trans "Shopping Cart" %}
+            </a>
         </div>
     </nav>
 
     <div class="game-header">
 
-    <div class="game-title">
-        <h1>{{ that_one_game.name }}</h1>
-    </div>
+        <div class="game-title">
+            <h1>{{ that_one_game.name }}</h1>
+        </div>
 
-<div class="game-content">
-
-    <div class="game-images">
-        {% for image in that_one_game.images.all %}
-            <img src="{{ image.image.url }}" alt="{{ image.caption }}">
-        {% endfor %}
-    </div>
-
-    <div class="game-info">
-        <p>{{ that_one_game.description }}</p>
-
-        <p><strong>Spieltyp:</strong> {{ that_one_game.get_game_type_display }}</p>
-        <p><strong>Betriebssystem:</strong> {{ that_one_game.get_operation_system_display }}</p>
-        <p><strong>Genre:</strong> {{ that_one_game.get_genre_display }}</p>
-        <p><strong>FSK:</strong> {{ that_one_game.get_fsk_display }}</p>
-
-        <p>
-            <a class="btn btn--secondary" href="{% url 'game_pdf' that_one_game.id %}">
-                PDF herunterladen
-            </a>
-        </p>
-    </div>
-
-</div>
-
-    <div class="price-container">
-        <span class="price">{{ that_one_game.price }} €</span>
-
-        {% if user.is_authenticated %}
-        <form method="post" class="form-inline">
-            {% csrf_token %}
-            <button class="btn" type="submit" name="add_to_cart">
-                Zum Warenkorb hinzufügen
-            </button>
-        </form>
-        {% endif %}
-    </div>
-</div>
-
-    <div class="reviews">
-        <h2>Reviews</h2>
-
-        {% for review in that_one_game.review_set.all %}
-<div class="review-box">
-
-    <div class="review-header">
-
-        {% if review.user.profile_picture %}
-            <img class="review-user-img"
-                 src="{{ review.user.profile_picture.url }}"
-                 alt="{{ review.user.username }}">
-        {% endif %}
-
-        <div class="review-content">
-            <div>
-                <span class="review-username">{{ review.user }}</span>
-                <span class="review-text">: {{ review.text }}</span>
+        <div class="game-content">
+            <div class="game-images">
+                {% for image in that_one_game.images.all %}
+                    <img src="{{ image.image.url }}" alt="{{ image.caption }}">
+                {% endfor %}
             </div>
 
-            <small>{{ review.created_at }}</small>
-            <p class="review-question">Ist dieses Review hilfreich?</p>
-            <div class="review-votes">
-                <a href="{% url 'review_vote' review.id 'Y' %}">
-                    👍 yes ({{ review.get_yes_count }})
-                </a>
+            <div class="game-info">
+                <p>{{ that_one_game.description }}</p>
 
-                <span class="vote-separator">|</span>
+                <p><strong>{% trans "Game Type" %}:</strong> {{ that_one_game.get_game_type_display }}</p>
+                <p><strong>{% trans "Operating System" %}:</strong> {{ that_one_game.get_operation_system_display }}</p>
+                <p><strong>{% trans "Genre" %}:</strong> {{ that_one_game.get_genre_display }}</p>
+                <p><strong>{% trans "Age Rating" %}:</strong> {{ that_one_game.get_fsk_display }}</p>
 
-                <a href="{% url 'review_vote' review.id 'N' %}">
-                    👎 no ({{ review.get_no_count }})
-                </a>
-
-                <span class="vote-separator">|</span>
-
-                <a href="{% url 'review_vote' review.id 'F' %}">
-                    😂 funny ({{ review.get_funny_count }})
-                </a>
+                <p>
+                    <a class="btn btn--secondary" href="{% url 'game_pdf' that_one_game.id %}">
+                        {% trans "Download PDF" %}
+                    </a>
+                </p>
             </div>
         </div>
 
+        <div class="price-container">
+            <span class="price">{{ that_one_game.price }} €</span>
+
+            {% if user.is_authenticated %}
+            <form method="post" class="form-inline">
+                {% csrf_token %}
+                <button class="btn" type="submit" name="add_to_cart">
+                    {% trans "Add to Cart" %}
+                </button>
+            </form>
+            {% endif %}
+        </div>
     </div>
 
-            {% if review.user == user %}
+    <div class="reviews">
+        <h2>{% trans "Reviews" %}</h2>
 
-                <button type="button" class="btn-edit"
+        {% for review in that_one_game.review_set.all %}
+        <div class="review-box">
+            <div class="review-header">
+
+                {% if review.user.profile_picture %}
+                    <img class="review-user-img"
+                         src="{{ review.user.profile_picture.url }}"
+                         alt="{{ review.user.username }}">
+                {% endif %}
+
+                <div class="review-content">
+                    <div>
+                        <span class="review-username">{{ review.user }}</span>
+                        <span class="review-text">: {{ review.text }}</span>
+                    </div>
+
+                    <small>{{ review.created_at }}</small>
+
+                    <p class="review-question">
+                        {% trans "Was this review helpful?" %}
+                    </p>
+
+                    <div class="review-votes">
+                        <a href="{% url 'review_vote' review.id 'Y' %}">
+                            👍 {% trans "Yes" %} ({{ review.get_yes_count }})
+                        </a>
+
+                        <span class="vote-separator">|</span>
+
+                        <a href="{% url 'review_vote' review.id 'N' %}">
+                            👎 {% trans "No" %} ({{ review.get_no_count }})
+                        </a>
+
+                        <span class="vote-separator">|</span>
+
+                        <a href="{% url 'review_vote' review.id 'F' %}">
+                            😂 {% trans "Funny" %} ({{ review.get_funny_count }})
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            {% if review.user == user %}
+                <button type="button"
+                        class="btn-edit"
                         onclick="toggleReviewEdit({{ review.id }})">
-                    Edit review
+                    {% trans "Edit Review" %}
                 </button>
+
                 <form method="post"
                       action="{% url 'delete_review' review.id %}"
                       style="display:inline;">
                     {% csrf_token %}
                     <button class="btn-delete" type="submit">
-                    Delete review
+                        {% trans "Delete Review" %}
                     </button>
                 </form>
 
-
                 <div id="review-edit-{{ review.id }}"
                      style="display:none; margin-top:10px;">
+
                     <form method="post"
                           action="{% url 'edit_review' review.id %}">
+
                         {% csrf_token %}
+
                         <textarea name="text">{{ review.text }}</textarea>
-                        <button class="btn-save" type="submit">Save edit</button>
+
+                        <button class="btn-save" type="submit">
+                            {% trans "Save Changes" %}
+                        </button>
                     </form>
                 </div>
 
@@ -138,110 +152,117 @@
 
             <hr>
 
-
             <div class="comments">
                 {% for comment in review.comments.all %}
-                    <div class="comment">
+                <div class="comment">
 
-    <div class="comment-header">
+                    <div class="comment-header">
 
-        {% if comment.user.profile_picture %}
-            <img class="comment-user-img"
-                 src="{{ comment.user.profile_picture.url }}"
-                 alt="{{ comment.user.username }}">
-        {% endif %}
+                        {% if comment.user.profile_picture %}
+                            <img class="comment-user-img"
+                                 src="{{ comment.user.profile_picture.url }}"
+                                 alt="{{ comment.user.username }}">
+                        {% endif %}
 
-        <div class="comment-content">
+                        <div class="comment-content">
 
-            <div>
-                <span class="comment-username">{{ comment.user }}</span>
-                <span class="comment-text">: {{ comment.text }}</span>
-            </div>
+                            <div>
+                                <span class="comment-username">{{ comment.user }}</span>
+                                <span class="comment-text">: {{ comment.text }}</span>
+                            </div>
 
-            <small>{{ comment.created_at }}</small>
+                            <small>{{ comment.created_at }}</small>
 
-            <div class="comment-votes">
+                            <div class="comment-votes">
 
-                <a href="{% url 'comment_vote' comment.id 'up' %}">
-                    👍 up ({{ comment.get_upvotes_count }})
-                </a>
+                                <a href="{% url 'comment_vote' comment.id 'up' %}">
+                                    👍 {% trans "Up" %} ({{ comment.get_upvotes_count }})
+                                </a>
 
-                <span class="vote-separator">|</span>
+                                <span class="vote-separator">|</span>
 
-                <a href="{% url 'comment_vote' comment.id 'down' %}">
-                    👎 down ({{ comment.get_downvotes_count }})
-                </a>
+                                <a href="{% url 'comment_vote' comment.id 'down' %}">
+                                    👎 {% trans "Down" %} ({{ comment.get_downvotes_count }})
+                                </a>
+                            </div>
+                        </div>
 
-            </div>
+                    </div>
 
-        </div>
+                    {% if comment.user == user %}
+                        <button type="button"
+                                class="btn-edit"
+                                onclick="toggleEdit({{ comment.id }})">
+                            {% trans "Edit" %}
+                        </button>
 
-    </div>
+                        <form method="post"
+                              action="{% url 'delete_comment' comment.id %}"
+                              style="display:inline;">
 
-    {% if comment.user == user %}
+                            {% csrf_token %}
 
-        <button type="button"
-                class="btn-edit"
-                onclick="toggleEdit({{ comment.id }})">
-            Edit
-        </button>
+                            <button class="btn-delete" type="submit">
+                                {% trans "Delete" %}
+                            </button>
+                        </form>
 
-        <form method="post"
-              action="{% url 'delete_comment' comment.id %}"
-              style="display:inline;">
-            {% csrf_token %}
-            <button class="btn-delete" type="submit">
-                Delete
-            </button>
-        </form>
+                        <div id="edit-{{ comment.id }}"
+                             style="display:none; margin-top:8px;">
 
-        <div id="edit-{{ comment.id }}"
-             style="display:none; margin-top:8px;">
-            <form method="post"
-                  action="{% url 'edit_comment' comment.id %}">
-                {% csrf_token %}
-                <input type="text"
-                       name="text"
-                       value="{{ comment.text }}">
-                <button class="btn-save" type="submit">
-                    Save edit
-                </button>
-            </form>
-        </div>
+                            <form method="post"
+                                  action="{% url 'edit_comment' comment.id %}">
 
-    {% endif %}
+                                {% csrf_token %}
 
-</div>
+                                <input type="text"
+                                       name="text"
+                                       value="{{ comment.text }}">
+
+                                <button class="btn-save" type="submit">
+                                    {% trans "Save Changes" %}
+                                </button>
+                            </form>
+                        </div>
+                    {% endif %}
+                </div>
+
                 {% endfor %}
 
                 <form method="post"
                       action="{% url 'add_review_comment' review.id %}">
+
                     {% csrf_token %}
+
                     <textarea name="text"></textarea>
+
                     <br>
+
                     <button class="btn-save" type="submit">
-                        save comment
+                        {% trans "Save Comment" %}
                     </button>
                 </form>
-
             </div>
         </div>
         {% endfor %}
     </div>
 
-
     {% if user.is_authenticated %}
-    {% if not user_review %}
-        <form method="post">
-            {% csrf_token %}
-            <textarea name="text"></textarea>
-            <button class="btn-save" type="submit" name="save_review">
-                Save review
-            </button>
-        </form>
-    {% endif %}
-    {% endif %}
+        {% if not user_review %}
+            <form method="post">
+                {% csrf_token %}
 
+                <textarea name="text"></textarea>
+
+                <button class="btn-save"
+                        type="submit"
+                        name="save_review">
+
+                    {% trans "Save Review" %}
+                </button>
+            </form>
+        {% endif %}
+    {% endif %}
 </section>
 
 <script>

@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <!doctype html>
 <html>
   <head>
@@ -12,7 +13,7 @@
 
     {% block css %}{% endblock %}
 
-    <title>{% block title %}Base Title{% endblock %}</title>
+    <title>{% block title %}{% trans "Base Title" %}{% endblock %}</title>
 
     <style>
       .page-container {
@@ -35,14 +36,43 @@
         margin-bottom: 10px;
         border-bottom: 1px solid #444;
       }
+
+      .language-form{
+        float:right;
+      }
     </style>
   </head>
 
   <body>
+
+    <form class="language-form"
+          action="{% url 'set_language' %}"
+          method="post">
+        {% csrf_token %}
+        <input name="next" type="hidden" value="{{ request.get_full_path }}">
+
+        <select name="language" onchange="this.form.submit()">
+            <option value="en"
+                {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>
+                English
+            </option>
+
+            <option value="de"
+                {% if LANGUAGE_CODE == 'de' %}selected{% endif %}>
+                Deutsch
+            </option>
+        </select>
+    </form>
+
+    <p>
+    Current language: {{ LANGUAGE_CODE }}
+    </p>
+
     <div class="page-container">
       {% block content %}
-      Base Block
+      {% trans "Base Block" %}
       {% endblock %}
     </div>
+
   </body>
 </html>

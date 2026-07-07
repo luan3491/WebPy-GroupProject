@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', game_views.home, name='home'),
+    path("i18n/", include("django.conf.urls.i18n")), # internalization and localization
     path('home/', game_views.home, name='home'),
 
     path('useradmin/', include('Useradmin.urls')),
