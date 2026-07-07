@@ -215,6 +215,9 @@ msgid ""
 "            Hello %(name)s!\n"
 "            "
 msgstr ""
+"\n"
+"            Hallo %(name)s!\n"
+"            "
 
 #: .\templates\homepage.html:47
 msgid "Logout"
@@ -237,14 +240,14 @@ msgstr "Sie sind nicht angemeldet."
 #: .\templates\registration\login.html:31
 #: .\templates\registration\signup.html:31
 msgid "Login"
-msgstr "Login"
+msgstr "Anmelden"
 
 #: .\templates\homepage.html:90 .\templates\registration\login.html:40
 #: .\templates\registration\signup.html:5
 #: .\templates\registration\signup.html:10
 #: .\templates\registration\signup.html:23
 msgid "Signup"
-msgstr "Anmelden"
+msgstr "Registrieren"
 
 #: .\templates\library.html:12
 msgid "Games Library"
