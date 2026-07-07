@@ -1,10 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% if user.is_authenticated and user.user_type == "CS" %}
+
+    <a class="btn" href="{% url 'create_game' %}">Spiel hinzufügen</a>
+
+    <h3>Alle Kunden</h3>
+    {% for customer in all_the_users %}
+        <a href="{% url 'cs_user_detail' customer.id %}">
+            {{ customer.display_name }}
+        </a>
+        <br>
+    {% endfor %}
+
+    <h3>Alle Spiele</h3>
+    {% for game in all_the_games %}
+        <a href="{% url 'cs_game_detail' game.id %}">
+            {{ game.name }}
+        </a>
+        <br>
+    {% endfor %}
+
+    <h3>Alle Reports</h3>
+    {% for report in alle_the_reports %}
+        <a href="{% url 'game_detail' report.review.game.id %}">
+            {{ report.user }} reported: {{ report.review.text }}
+        </a>
+        <br>
+    {% endfor %}
+
+{% endif %}

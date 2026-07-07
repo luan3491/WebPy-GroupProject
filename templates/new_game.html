@@ -1,10 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+{% endblock %}
+
+{% block title %}Spiel hinzufügen{% endblock %}
+
+{% block content %}
+<section class="container">
+
+    <h2>Neues Spiel</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <br>
+        <label>Name:</label>
+        {{ form.name }}
+        <br>
+        <label>Beschreibung:</label>
+        {{ form.description }}
+        <br>
+        <label>Spieltyp:</label>
+        {{ form.game_type }}
+        <br>
+        <label>Genre:</label>
+        {{ form.genre }}
+        <br>
+        <label>FSK:</label>
+        {{ form.fsk }}
+        <br>
+        <label>Preis:</label>
+        {{ form.price }}
+        <br>
+        <label>Betriebssystem:</label>
+        {{ form.operation_system }}
+        <br>
+        <label>Bild:</label>
+        {{ image_form.image }}
+        <br>
+        <br><br>
+
+        <button class="btn-save" type="submit">
+            Spiel speichern
+        </button>
+    </form>
+
+</section>
+{% endblock %}

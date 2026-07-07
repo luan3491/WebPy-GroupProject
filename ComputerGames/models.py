@@ -155,3 +155,16 @@ class CommentVote(models.Model):
 
     def __str__(self):
         return self.up_or_down + " by " + self.user.username
+
+
+
+class Report(models.Model):
+    review = models.ForeignKey(Review, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ("review", "user")
+
+    def __str__(self):
+        return f"{self.user} reported {self.review}"

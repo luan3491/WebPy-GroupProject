@@ -1,7 +1,7 @@
 import random
 
 from django.contrib.auth.forms import UserCreationForm
-
+from django import forms
 from .models import MyUser
 
 
@@ -54,3 +54,14 @@ class MySignUpForm(UserCreationForm):
         raise ValueError(
             "Für diesen Anzeigenamen konnte kein freier Accountname erstellt werden."
         )
+
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = MyUser
+        fields = [
+            "display_name",
+            "email",
+            "biography",
+            "profile_picture",
+        ]
