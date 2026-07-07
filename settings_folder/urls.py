@@ -37,9 +37,11 @@ urlpatterns = [
 
     path("review/<int:review_id>/edit/", game_views.edit_review, name="edit_review"),
     path("review/<int:review_id>/delete/", game_views.delete_review, name="delete_review"),
+    path("review/<int:review_id>/deletecs/", game_views.delete_review_cs, name="delete_review_cs"),
 
     path("comment/<int:comment_id>/edit/", game_views.edit_comment, name="edit_comment"),
     path("comment/<int:comment_id>/delete/", game_views.delete_comment, name="delete_comment"),
+    path("comment/<int:comment_id>/deletecs/", game_views.delete_comment_cs, name="delete_comment_cs"),
 
     path('review/<int:review_id>/vote/<str:vote_type>/', game_views.review_vote, name='review_vote'),
     path('comment/<int:comment_id>/<str:up_or_down>/', game_views.comment_vote, name='comment_vote'),
@@ -49,6 +51,11 @@ urlpatterns = [
     path('cart/', cart_views.show_shopping_cart, name='cart'),
     path('cart/pay/', cart_views.pay, name='shopping_cart_pay'),
     path('cart/item/<int:item_id>/<str:action>/', cart_views.change_quantity, name='change_quantity'),
+    path("cs/game/create/", game_views.create_game, name="create_game"),
+    path("cs/", game_views.cs, name="cs_page"),
+    path("cs/user/<int:pk>/", game_views.cs_user_detail, name="cs_user_detail"),
+    path("cs/game/<int:pk>/", game_views.cs_game_detail, name="cs_game_detail"),
+    path("review/<int:review_id>/report/",game_views.report_review,name="report_review"),
 ]
 
 if settings.DEBUG:

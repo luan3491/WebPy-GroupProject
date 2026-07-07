@@ -110,7 +110,7 @@ class Command(BaseCommand):
         # This one below needs to be manually deleted from http://127.0.0.1:8000/admin/
         if not Game.objects.filter(name="Baldur's Gate 4").exists():
             game = Game.objects.create(
-                name="Baldur's Gate 4",
+                name="AAA Göker's New Test 1",
                 description="A fantasy role-playing game set in the Forgotten Realms.",
                 game_type="DI",
                 genre="RP",
@@ -124,7 +124,7 @@ class Command(BaseCommand):
 
         # This one below updates itself every time "python manage.py seed_demo_data" is run
         Game.objects.update_or_create(
-            name="Göker's Test 1",
+            name="AAA Göker's New Test 2",
             defaults={
                 "description": "A custom fantasy RPG.",
                 "game_type": "DI",

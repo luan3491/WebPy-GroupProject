@@ -11,17 +11,26 @@
 {% if user.is_authenticated %}
 
 <nav class="navbar">
-
     <div class="navbar--left-section">
+
         <a class="btn btn--secondary"
            href="{% url 'home' %}">
             {% trans "Home" %}
         </a>
 
-        <a class="btn btn--secondary"
-           href="{% url 'game_list' %}">
-            {% trans "Library" %}
-        </a>
+        {% if user.user_type == "CU" %}
+            <a class="btn btn--secondary"
+               href="{% url 'game_list' %}">
+                {% trans "Library" %}
+            </a>
+        {% endif %}
+
+        {% if user.user_type == "CS" %}
+            <a class="btn btn--secondary"
+               href="{% url 'cs_page' %}">
+                {% trans "CS Page" %}
+            </a>
+        {% endif %}
     </div>
 
     <div class="navbar--right-section">
@@ -44,7 +53,6 @@
 </nav>
 
 <section class="container">
-
     <h1>{% trans "Shop" %}</h1>
 
     <div class="game-list">
@@ -52,7 +60,6 @@
             <div class="game">
                 {% with first_image=game.images.first %}
                     <a href="{% url 'game_detail' game.id %}">
-
                         {% if first_image %}
 
                             <img src="{{ first_image.image.url }}"
@@ -67,31 +74,20 @@
                             </div>
                         {% endif %}
                     </a>
+
                 {% endwith %}
+
                 <h3>{{ game.name }}</h3>
                 <p>{{ game.price }} €</p>
             </div>
         {% endfor %}
     </div>
-
 </section>
 
 {% else %}
-
     <p>{% trans "You are not logged in." %}</p>
-
-    <p>
-        <a href="{% url 'login' %}">
-            {% trans "Login" %}
-        </a>
-    </p>
-
-    <p>
-        <a href="{% url 'signup' %}">
-            {% trans "Signup" %}
-        </a>
-    </p>
-
+    <p><a href="{% url 'login' %}"> {% trans "Login" %} </a></p>
+    <p><a href="{% url 'signup' %}"> {% trans "Signup" %} </a></p>
 {% endif %}
 
 {% endblock %}
