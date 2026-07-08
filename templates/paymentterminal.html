@@ -7,41 +7,47 @@
 
 {% block content %}
 
-<h2>{% trans "Payment" %}</h2>
+<section class="container game-form-page">
 
-{% if paid %}
+    <h2>{% trans "Payment" %}</h2>
 
-    {% blocktrans %}
-    Thank you for your order. You can find the game in your Library.
-    {% endblocktrans %}
+    {% if paid %}
 
-    <a href="{% url 'game_list' %}">
-        {% trans "Library" %}
-    </a>
+        <p>
+            {% blocktrans %}
+            Thank you for your order. You can find the game in your Library.
+            {% endblocktrans %}
+        </p>
 
-{% else %}
+        <a class="btn" href="{% url 'game_list' %}">
+            {% trans "Library" %}
+        </a>
 
-    <form method="POST">
-        {% csrf_token %}
-        {{ payment_form.as_p }}
+    {% else %}
 
-        <input
-            type="hidden"
-            id="shopping_cart_id"
-            name="shopping_cart_id"
-            value="{{ shopping_cart.id }}">
+        <form method="post">
+            {% csrf_token %}
 
-        <button type="submit" name="Pay">
-            {% trans "Pay" %}
-        </button>
-    </form>
+            {{ payment_form.as_p }}
 
-    <br>
+            <input type="hidden"
+                   name="shopping_cart_id"
+                   value="{{ shopping_cart.id }}">
 
-    <a href="{% url 'home' %}">
-        {% trans "Back to Shop" %}
-    </a>
+            <div class="game-form-buttons">
+                <button class="btn-save" type="submit">
+                    {% trans "Pay" %}
+                </button>
 
-{% endif %}
+                <a class="btn" href="{% url 'home' %}">
+                    {% trans "Back to Shop" %}
+                </a>
+            </div>
+
+        </form>
+
+    {% endif %}
+
+</section>
 
 {% endblock %}

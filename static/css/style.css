@@ -1032,3 +1032,120 @@ input[type="text"]:focus {
         font-size: 2.2rem;
     }
 }
+.cs-actions {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.cs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.cs-item {
+    display: block;
+    width: fit-content;
+    min-width: 250px;
+
+    padding: 12px 18px;
+
+    background: #2f3338;
+    color: white;
+    text-decoration: none;
+
+    border-radius: 8px;
+    border: 1px solid #4b4f55;
+
+    transition: 0.2s;
+}
+
+.cs-item:hover {
+    background: #1973cd;
+    color: white;
+}
+
+.cs-report {
+    border-left: 5px solid #d9534f;
+}
+
+.cs-section h3 {
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.game-form-page form {
+    max-width: 1000px;
+    background: #1f2225;
+    border: 1px solid #3a3f44;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.game-form-page label {
+    display: block;
+    margin-top: 1rem;
+    margin-bottom: .4rem;
+    color: #63c8e1;
+    font-weight: 600;
+}
+
+.game-form-page input,
+.game-form-page textarea,
+.game-form-page select {
+    width: 100%;
+    max-width: none;
+    padding: .7rem;
+    border-radius: 8px;
+    border: 1px solid #555;
+    background: #2b2f33;
+    color: white;
+    box-sizing: border-box;
+}
+
+.game-form-page h2 {
+    color: #63c8e1;
+}
+.back-button {
+    margin-top: 20px;
+    display: block;
+}
+
+.game-form-buttons {
+    display: flex;
+    align-items: center;
+    margin-top: 25px;
+}
+
+.game-form-buttons .btn {
+    margin-left: auto;
+}
+.cart-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.cart-buttons form {
+    display: inline;
+}
+.clearable-file-input {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.clearable-file-input label {
+    display: inline;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+input[name$="-clear"] + label {
+    display: none;
+}
