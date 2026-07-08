@@ -13,7 +13,7 @@
 
 {% block content %}
 
-<section class="container">
+<section class="container game-form-page">
     <h2>{% trans "New Game" %}</h2>
 
     <form method="post" enctype="multipart/form-data">
@@ -45,13 +45,16 @@
         <br>
         <br>
         <br>
-        <button class="btn-save" type="submit">
-            {% trans "Save Game" %}
-        </button>
+        <div class="game-form-buttons">
+            <button class="btn-save" type="submit">
+                {% trans "Save Game" %}
+            </button>
+
+            <a class="btn" href="{% url 'cs_page' %}">
+                {% trans "Back" %}
+            </a>
+        </div>
     </form>
-    <a class="btn" href="{% url 'cs_page' %}">
-        {% trans "Back" %}
-    </a>
 </section>
 
 {% endblock %}

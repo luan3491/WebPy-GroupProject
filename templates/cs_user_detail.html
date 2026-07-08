@@ -1,22 +1,38 @@
 {% extends "base.html" %}
+{% load static %}
 {% load i18n %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+{% endblock %}
+
+{% block title %}
+{% trans "Edit User" %}
+{% endblock %}
 
 {% block content %}
 
-<h2>{% trans "Edit User" %}</h2>
+<section class="container game-form-page">
 
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
+    <h2>{% trans "Edit User" %}</h2>
 
-    {{ form.as_p }}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
 
-    <button class="btn" type="submit">
-        {% trans "Save" %}
-    </button>
-</form>
+        {{ form.as_p }}
 
-<a class="btn" href="{% url 'cs_page' %}">
-    {% trans "Back" %}
-</a>
+        <div class="game-form-buttons">
+            <button class="btn-save" type="submit">
+                {% trans "Save" %}
+            </button>
+
+            <a class="btn" href="{% url 'cs_page' %}">
+                {% trans "Back" %}
+            </a>
+        </div>
+
+    </form>
+
+</section>
 
 {% endblock %}
