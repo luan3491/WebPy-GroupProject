@@ -1,5 +1,6 @@
 from django import forms
 from .models import Game, GameImage, Review
+from django.utils.translation import gettext_lazy as _
 
 
 class GameForm(forms.ModelForm):
@@ -47,18 +48,18 @@ class ReviewForm(forms.ModelForm):
 class GameSearchForm(forms.Form):
     search_text = forms.CharField(
         required=False,
-        label="Suchtext",
+        label=_("Search text"),
     )
 
     stars = forms.ChoiceField(
         required=False,
-        label="Rating",
+        label=_("Rating"),
         choices=[
-            ("", "All Ratings"),
-            ("1", "1 Star and above"),
-            ("2", "2 Stars and above"),
-            ("3", "3 Stars and above"),
-            ("4", "4 Stars and above"),
-            ("5", "5 Stars"),
+            ("", _("All ratings")),
+            ("1", _("1 Star and above")),
+            ("2", _("2 Stars and above")),
+            ("3", _("3 Stars and above")),
+            ("4", _("4 Stars and above")),
+            ("5", _("5 Stars")),
         ],
     )

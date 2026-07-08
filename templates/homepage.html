@@ -54,11 +54,11 @@
         {{ search_form.as_p }}
 
         <button type="submit">
-            Search
+            {% trans "Search" %}
         </button>
 
         <a class="btn btn--secondary" href="{% url 'home' %}">
-            Reset
+            {% trans "Reset" %}
         </a>
     </form>
 
@@ -84,15 +84,15 @@
 
             {% if game.average_stars %}
             <p>
-                Rating:
+                {% trans "Rating" %}:
                 {{ game.average_stars|floatformat:"0" }} / 5 ⭐
             </p>
             {% else %}
-            <p>No Rating yet</p>
+            <p>{% trans "No rating yet" %}</p>
             {% endif %}
         </div>
         {% empty %}
-        <p>No games found.</p>
+        <p>{% trans "No games found." %}</p>
         {% endfor %}
     </div>
 </section>

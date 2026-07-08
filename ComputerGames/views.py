@@ -14,6 +14,7 @@ import io
 from django.contrib.auth.decorators import login_required
 from Useradmin.forms import UserForm
 from django.db.models import Avg, Q
+from django.utils.translation import gettext as _
 
 
 def game_pdf(request, pk):
@@ -24,21 +25,21 @@ def game_pdf(request, pk):
     pdf.setFont("Helvetica-Bold", 18)
     pdf.drawString(50, 800, game.name)
 
-    # Erstes Bild des Spiels
+    # First image of the game
     first_image = game.images.first()
 
     if first_image:
         image = ImageReader(first_image.image.path)
         pdf.drawImage(image, 50, 600, width=250, height=180, preserveAspectRatio=True)
     pdf.setFont("Helvetica", 12)
-    pdf.drawString(300, 760, f"Genre: {game.get_genre_display()}")
-    pdf.drawString(300, 740, f"Preis: {game.price} €")
-    pdf.drawString(300, 720, f"FSK: {game.get_fsk_display()}")
-    pdf.drawString(300, 700, f"Spieltyp: {game.get_game_type_display()}")
-    pdf.drawString(300, 680, f"OS: {game.get_operation_system_display()}")
+    pdf.drawString(300, 760, f"{_('Genre')}: {game.get_genre_display()}")
+    pdf.drawString(300, 740, f"{_('Price')}: {game.price} €")
+    pdf.drawString(300, 720, f"{_('Age Rating')}: {game.get_fsk_display()}")
+    pdf.drawString(300, 700, f"{_('Game Type')}: {game.get_game_type_display()}")
+    pdf.drawString(300, 680, f"{_('Operating System')}: {game.get_operation_system_display()}")
     text = pdf.beginText(300, 660)
     text.setFont("Helvetica", 12)
-    text.textLine("Beschreibung:")
+    text.textLine(f"{_('Description')}:")
     text.textLines(game.description)
     pdf.drawText(text)
     pdf.showPage()
