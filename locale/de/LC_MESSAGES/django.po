@@ -231,6 +231,10 @@ msgid "Profile menu"
 msgstr "Profilmenü"
 
 #: .\templates\base.html
+msgid "Profile"
+msgstr "Profil"
+
+#: .\templates\base.html
 msgid "Edit Profile"
 msgstr "Profil bearbeiten"
 
@@ -574,3 +578,21 @@ msgstr "Profil speichern"
 #: .\templates\registration\profile_settings.html
 msgid "Change Password"
 msgstr "Passwort ändern"
+
+#: .\templates\gamepage.html
+#, python-format
+msgid "View profile of %(name)s"
+msgstr "Profil von %(name)s ansehen"
+
+#: .\templates\user_profile.html
+#, python-format
+msgid "Profile of %(name)s"
+msgstr "Profil von %(name)s"
+
+#: .\templates\user_profile.html
+msgid "No biography yet."
+msgstr "Noch keine Biografie vorhanden."
+
+#: .\templates\user_profile.html
+msgid "This user does not own any games yet."
+msgstr "Dieser Benutzer besitzt noch keine Spiele."

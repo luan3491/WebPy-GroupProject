@@ -172,6 +172,7 @@ a {
 
 .site-header__menu-content .site-header__menu-link {
     box-sizing: border-box;
+    display: block;
     margin-bottom: 0.75rem;
     text-align: center;
 }
@@ -390,6 +391,15 @@ a {
     font-weight: 700;
 }
 
+.profile-user-link {
+    text-decoration: none;
+}
+
+.profile-user-link:hover {
+    color: white;
+    text-decoration: underline;
+}
+
 .review-text {
     color: #e0e0e0;
 }
@@ -466,6 +476,16 @@ a {
 .comment-username {
     color: #63c8e1;
     font-weight: 700;
+}
+
+.review-header > a,
+.comment-header > a {
+    flex-shrink: 0;
+}
+
+.review-header > a:hover img,
+.comment-header > a:hover img {
+    border-color: #63c8e1;
 }
 
 .comment-text {
@@ -812,6 +832,113 @@ input[type="text"]:focus {
     gap: 0.6rem;
 }
 
+.public-profile {
+    max-width: 900px;
+    margin: 3rem auto;
+    padding: 1.6rem;
+    background: #1f2225;
+    border: 1px solid #3a3f44;
+    border-radius: 12px;
+}
+
+.public-profile__header {
+    display: flex;
+    align-items: center;
+    gap: 1.4rem;
+    padding-bottom: 1.5rem;
+}
+
+.public-profile__avatar {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #1973cd;
+    background: #333;
+}
+
+.public-profile h1 {
+    margin: 0;
+    color: #63c8e1;
+    font-size: 2.1rem;
+}
+
+.public-profile__account-name {
+    margin: 0.35rem 0 0;
+    color: #b7c0ca;
+}
+
+.public-profile__section {
+    padding-top: 1.4rem;
+    border-top: 1px solid #3a3f44;
+}
+
+.public-profile__section + .public-profile__section {
+    margin-top: 1.8rem;
+}
+
+.public-profile__section h2 {
+    margin: 0 0 1rem;
+    color: #63c8e1;
+}
+
+.public-profile__section p {
+    margin: 0;
+    color: #e5e5e5;
+    line-height: 1.5;
+}
+
+.public-profile__empty {
+    color: #b7c0ca !important;
+}
+
+.public-profile__library-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.public-profile__game-card {
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    min-height: 100%;
+    background: #25292d;
+    border: 1px solid #3a3f44;
+    border-radius: 8px;
+    color: white;
+    text-decoration: none;
+}
+
+.public-profile__game-card:hover {
+    border-color: #1973cd;
+}
+
+.public-profile__game-card img,
+.public-profile__game-placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+}
+
+.public-profile__game-card img {
+    object-fit: cover;
+    display: block;
+}
+
+.public-profile__game-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #333;
+    color: #b7c0ca;
+    text-align: center;
+}
+
+.public-profile__game-title {
+    padding: 0.75rem;
+    font-weight: 700;
+}
+
 @media (max-width: 1024px) {
     .game-list {
         grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -852,6 +979,10 @@ input[type="text"]:focus {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
+    .public-profile__library-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .navbar {
         flex-direction: column;
         gap: 1rem;
@@ -870,6 +1001,15 @@ input[type="text"]:focus {
     .profile-settings__picture-row {
         align-items: flex-start;
         flex-direction: column;
+    }
+
+    .public-profile__header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .public-profile__library-grid {
+        grid-template-columns: 1fr;
     }
 
     .site-header__language {

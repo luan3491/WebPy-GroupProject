@@ -101,14 +101,18 @@
         <div class="review-box">
             <div class="review-header">
 
-                {% if review.user.profile_picture %}
-                <img class="review-user-img" src="{{ review.user.profile_picture.url }}"
-                    alt="{{ review.user.username }}">
-                {% endif %}
+                <a href="{% url 'user_profile' review.user.id %}" aria-label="{% blocktrans with name=review.user.display_name %}View profile of {{ name }}{% endblocktrans %}">
+                    {% if review.user.profile_picture %}
+                    <img class="review-user-img" src="{{ review.user.profile_picture.url }}"
+                        alt="{{ review.user.username }}">
+                    {% endif %}
+                </a>
 
                 <div class="review-content">
                     <div>
-                        <span class="review-username">{{ review.user }}</span>
+                        <a class="review-username profile-user-link" href="{% url 'user_profile' review.user.id %}">
+                            {{ review.user }}
+                        </a>
                         <span class="review-stars">
                             - {{ review.stars }} / 5 ⭐
                         </span>
@@ -233,15 +237,19 @@
 
                     <div class="comment-header">
 
-                        {% if comment.user.profile_picture %}
-                        <img class="comment-user-img" src="{{ comment.user.profile_picture.url }}"
-                            alt="{{ comment.user.username }}">
-                        {% endif %}
+                        <a href="{% url 'user_profile' comment.user.id %}" aria-label="{% blocktrans with name=comment.user.display_name %}View profile of {{ name }}{% endblocktrans %}">
+                            {% if comment.user.profile_picture %}
+                            <img class="comment-user-img" src="{{ comment.user.profile_picture.url }}"
+                                alt="{{ comment.user.username }}">
+                            {% endif %}
+                        </a>
 
                         <div class="comment-content">
 
                             <div>
-                                <span class="comment-username">{{ comment.user }}</span>
+                                <a class="comment-username profile-user-link" href="{% url 'user_profile' comment.user.id %}">
+                                    {{ comment.user }}
+                                </a>
                                 <span class="comment-text">: {{ comment.text }}</span>
                             </div>
 

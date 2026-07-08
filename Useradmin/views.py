@@ -1,9 +1,9 @@
 from django.contrib import messages
-from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import get_user_model, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.views import LoginView
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.utils.translation import gettext as _
 from django.views import generic
@@ -30,6 +30,21 @@ class MySignUpView(generic.CreateView):
 
 class MyLoginView(LoginView):
     template_name = "registration/login.html"
+
+
+def user_profile(request, pk):
+    User = get_user_model()
+    profile_user = get_object_or_404(User, pk=pk)
+    all_the_games = profile_user.owned_games.prefetch_related("images")
+
+    return render(
+        request,
+        "user_profile.html",
+        {
+            "profile_user": profile_user,
+            "all_the_games": all_the_games,
+        },
+    )
 
 
 @login_required
