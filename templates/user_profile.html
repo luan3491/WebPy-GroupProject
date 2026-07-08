@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
+{% blocktrans with name=profile_user.display_name %}Profile of {{ name }}{% endblocktrans %}
+{% endblock %}
+
+{% block content %}
+
+<section class="public-profile">
+    <div class="public-profile__header">
+        {% if profile_user.profile_picture %}
+            <img
+                class="public-profile__avatar"
+                src="{{ profile_user.profile_picture.url }}"
+                alt="{% trans 'Profile picture' %}"
+            >
+        {% endif %}
+
+        <div>
+            <h1>{{ profile_user.display_name }}</h1>
+            <p class="public-profile__account-name">{{ profile_user.username }}</p>
+        </div>
+    </div>
+
+    <div class="public-profile__section">
+        <h2>{% trans "Biography" %}</h2>
+
+        {% if profile_user.biography %}
+            <p>{{ profile_user.biography|linebreaksbr }}</p>
+        {% else %}
+            <p class="public-profile__empty">
+                {% trans "No biography yet." %}
+            </p>
+        {% endif %}
+    </div>
+
+    <div class="public-profile__section">
+        <h2>{% trans "Library" %}</h2>
+
+        {% if all_the_games %}
+            <div class="public-profile__library-grid">
+                {% for game in all_the_games %}
+                    <a class="public-profile__game-card" href="{% url 'game_detail' game.id %}">
+                        {% with first_image=game.images.first %}
+                            {% if first_image %}
+                                <img src="{{ first_image.image.url }}" alt="{{ game.name }}">
+                            {% else %}
+                                <span class="public-profile__game-placeholder">
+                                    {% trans "No image available" %}
+                                </span>
+                            {% endif %}
+                        {% endwith %}
+
+                        <span class="public-profile__game-title">{{ game.name }}</span>
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="public-profile__empty">
+                {% trans "This user does not own any games yet." %}
+            </p>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}

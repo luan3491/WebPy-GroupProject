@@ -126,6 +126,10 @@
               </summary>
 
               <div class="site-header__menu-content">
+                <a class="btn btn--secondary site-header__menu-link" href="{% url 'user_profile' user.id %}">
+                  {% trans "Profile" %}
+                </a>
+
                 <a class="btn btn--secondary site-header__menu-link" href="{% url 'profile_settings' %}">
                   {% trans "Edit Profile" %}
                 </a>
