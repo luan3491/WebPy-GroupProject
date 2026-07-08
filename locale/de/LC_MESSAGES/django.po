@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-08 02:58+0200\n"
+"POT-Creation-Date: 2026-07-08 19:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -47,7 +47,7 @@ msgid "4 Stars and above"
 msgstr "Mindestens 4 Sterne"
 
 #: .\ComputerGames\forms.py:63 .\ComputerGames\models.py:94
-#: .\templates\gamepage.html:178
+#: .\templates\gamepage.html:179
 msgid "5 Stars"
 msgstr "5 Sterne"
 
@@ -136,19 +136,19 @@ msgstr "PlayStation"
 msgid "Image for %(game_name)s"
 msgstr "Bild für %(game_name)s"
 
-#: .\ComputerGames\models.py:90 .\templates\gamepage.html:174
+#: .\ComputerGames\models.py:90 .\templates\gamepage.html:175
 msgid "1 Star"
 msgstr "1 Stern"
 
-#: .\ComputerGames\models.py:91 .\templates\gamepage.html:175
+#: .\ComputerGames\models.py:91 .\templates\gamepage.html:176
 msgid "2 Stars"
 msgstr "2 Sterne"
 
-#: .\ComputerGames\models.py:92 .\templates\gamepage.html:176
+#: .\ComputerGames\models.py:92 .\templates\gamepage.html:177
 msgid "3 Stars"
 msgstr "3 Sterne"
 
-#: .\ComputerGames\models.py:93 .\templates\gamepage.html:177
+#: .\ComputerGames\models.py:93 .\templates\gamepage.html:178
 msgid "4 Stars"
 msgstr "4 Sterne"
 
@@ -247,23 +247,31 @@ msgstr "Gesamt:"
 msgid "Pay with credit card"
 msgstr "Mit Kreditkarte bezahlen"
 
-#: .\templates\cs_details.html:6 .\templates\new_game.html:10
+#: .\templates\cs_details.html:7
+msgid "Customer Service"
+msgstr "Kundenservice"
+
+#: .\templates\cs_details.html:13 .\templates\new_game.html:10
 msgid "Add Game"
 msgstr "Spiel hinzufügen"
 
-#: .\templates\cs_details.html:9
+#: .\templates\cs_details.html:16 .\templates\homepage.html:17
+msgid "Home"
+msgstr "Startseite"
+
+#: .\templates\cs_details.html:19
 msgid "All Customers"
 msgstr "Alle Kunden"
 
-#: .\templates\cs_details.html:19
+#: .\templates\cs_details.html:29
 msgid "All Games"
 msgstr "Alle Spiele"
 
-#: .\templates\cs_details.html:29
+#: .\templates\cs_details.html:39
 msgid "All Reports"
 msgstr "Alle Meldungen"
 
-#: .\templates\cs_details.html:33
+#: .\templates\cs_details.html:43
 msgid "reported"
 msgstr "gemeldet"
 
@@ -279,7 +287,8 @@ msgstr "Bild"
 msgid "Save"
 msgstr "Speichern"
 
-#: .\templates\cs_game_detail.html:24 .\templates\cs_user_detail.html:21
+#: .\templates\cs_game_detail.html:22 .\templates\cs_user_detail.html:19
+#: .\templates\new_game.html:53
 msgid "Back"
 msgstr "Zurück"
 
@@ -311,72 +320,84 @@ msgstr "In den Warenkorb legen"
 msgid "Reviews"
 msgstr "Bewertungen"
 
-#: .\templates\gamepage.html:119
+#: .\templates\gamepage.html:120
 msgid "Was this review helpful?"
 msgstr "War diese Bewertung hilfreich?"
 
-#: .\templates\gamepage.html:124
+#: .\templates\gamepage.html:125
 msgid "Yes"
 msgstr "Ja"
 
-#: .\templates\gamepage.html:130
+#: .\templates\gamepage.html:131
 msgid "No"
 msgstr "Nein"
 
-#: .\templates\gamepage.html:136
+#: .\templates\gamepage.html:137
 msgid "Funny"
 msgstr "Lustig"
 
-#: .\templates\gamepage.html:145
+#: .\templates\gamepage.html:146
 msgid "Report"
 msgstr "Melden"
 
-#: .\templates\gamepage.html:155
+#: .\templates\gamepage.html:156
 msgid "Edit Review"
 msgstr "Bewertung bearbeiten"
 
-#: .\templates\gamepage.html:161 .\templates\gamepage.html:198
+#: .\templates\gamepage.html:162 .\templates\gamepage.html:199
 msgid "Delete Review"
 msgstr "Bewertung löschen"
 
-#: .\templates\gamepage.html:172
+#: .\templates\gamepage.html:173
 msgid "Stars"
 msgstr "Sterne"
 
-#: .\templates\gamepage.html:187 .\templates\gamepage.html:265
+#: .\templates\gamepage.html:188 .\templates\gamepage.html:281
 msgid "Save Changes"
 msgstr "Änderungen speichern"
 
-#: .\templates\gamepage.html:229
+#: .\templates\gamepage.html:206
+msgid "Hide Review"
+msgstr "Bewertung verbergen"
+
+#: .\templates\gamepage.html:213
+msgid "Reveal Review"
+msgstr "Bewertung anzeigen"
+
+#: .\templates\gamepage.html:245
 msgid "Up"
 msgstr "Hoch"
 
-#: .\templates\gamepage.html:235
+#: .\templates\gamepage.html:251
 msgid "Down"
 msgstr "Runter"
 
-#: .\templates\gamepage.html:244
+#: .\templates\gamepage.html:260
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: .\templates\gamepage.html:252 .\templates\gamepage.html:276
+#: .\templates\gamepage.html:268 .\templates\gamepage.html:292
 msgid "Delete"
 msgstr "Löschen"
 
-#: .\templates\gamepage.html:291
+#: .\templates\gamepage.html:299
+msgid "Hide Comment"
+msgstr "Kommentar verbergen"
+
+#: .\templates\gamepage.html:306
+msgid "Reveal Comment"
+msgstr "Kommentar anzeigen"
+
+#: .\templates\gamepage.html:322
 msgid "Save Comment"
 msgstr "Kommentar speichern"
 
-#: .\templates\gamepage.html:309
+#: .\templates\gamepage.html:341
 msgid "Save Review"
 msgstr "Bewertung speichern"
 
 #: .\templates\homepage.html:6
 msgid "Homepage"
-msgstr "Startseite"
-
-#: .\templates\homepage.html:17
-msgid "Home"
 msgstr "Startseite"
 
 #: .\templates\homepage.html:22 .\templates\paymentterminal.html:19
@@ -471,7 +492,8 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"    Vielen Dank für deine Bestellung. Du findest das Spiel in deiner Bibliothek.\n"
+"    Vielen Dank für deine Bestellung. Du findest das Spiel in deiner "
+"Bibliothek.\n"
 "    "
 
 #: .\templates\paymentterminal.html:35
@@ -493,7 +515,8 @@ msgid ""
 "four digits.\n"
 msgstr ""
 "\n"
-"Aus deinem Anzeigenamen wird automatisch ein eindeutiger Accountname mit vier Ziffern erstellt.\n"
+"Aus deinem Anzeigenamen wird automatisch ein eindeutiger Accountname mit "
+"vier Ziffern erstellt.\n"
 
 #: .\templates\registration\signup.html:28
 msgid "Already registered?"
