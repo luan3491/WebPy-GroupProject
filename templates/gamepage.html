@@ -53,6 +53,18 @@
                 <p><strong>{% trans "Genre" %}:</strong> {{ that_one_game.get_genre_display }}</p>
                 <p><strong>{% trans "Age Rating" %}:</strong> {{ that_one_game.get_fsk_display }}</p>
 
+                {% if that_one_game.average_stars %}
+                <p>
+                    <strong>{% trans "Rating" %}:</strong>
+                    {{ that_one_game.average_stars|floatformat:"0" }} / 5 ⭐
+                </p>
+                {% else %}
+                <p>
+                    <strong>{% trans "Rating" %}:</strong>
+                    {% trans "No rating yet" %}
+                </p>
+                {% endif %}
+
                 <p>
                     <a class="btn btn--secondary" href="{% url 'game_pdf' that_one_game.id %}">
                         {% trans "Download PDF" %}
@@ -159,11 +171,11 @@
                     <label>
                         {% trans "Stars" %}:
                         <select name="stars">
-                            <option value="1" {% if review.stars == 1 %}selected{% endif %}>1 Star</option>
-                            <option value="2" {% if review.stars == 2 %}selected{% endif %}>2 Stars</option>
-                            <option value="3" {% if review.stars == 3 %}selected{% endif %}>3 Stars</option>
-                            <option value="4" {% if review.stars == 4 %}selected{% endif %}>4 Stars</option>
-                            <option value="5" {% if review.stars == 5 %}selected{% endif %}>5 Stars</option>
+                            <option value="1" {% if review.stars == 1 %}selected{% endif %}>{% trans "1 Star" %}</option>
+                            <option value="2" {% if review.stars == 2 %}selected{% endif %}>{% trans "2 Stars" %}</option>
+                            <option value="3" {% if review.stars == 3 %}selected{% endif %}>{% trans "3 Stars" %}</option>
+                            <option value="4" {% if review.stars == 4 %}selected{% endif %}>{% trans "4 Stars" %}</option>
+                            <option value="5" {% if review.stars == 5 %}selected{% endif %}>{% trans "5 Stars" %}</option>
                         </select>
                     </label>
 

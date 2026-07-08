@@ -1,38 +1,39 @@
 from django.db import models
 from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 
 
 class Game(models.Model):
     GAMETYPES = [
-        ("PH", "Physical"),
-        ("DI", "Digital"),
+        ("PH", _("Physical")),
+        ("DI", _("Digital")),
     ]
 
     GENRES = [
-        ("FP", "First-person shooter"),
-        ("RP", "Role Playing"),
-        ("PU", "Puzzle"),
-        ("SP", "Sport"),
-        ("TA", "Tactics"),
-        ("AD", "Adventure"),
-        ("SI", "Simulation"),
-        ("TT", "Tabletop"),
+        ("FP", _("First-person shooter")),
+        ("RP", _("Role Playing")),
+        ("PU", _("Puzzle")),
+        ("SP", _("Sport")),
+        ("TA", _("Tactics")),
+        ("AD", _("Adventure")),
+        ("SI", _("Simulation")),
+        ("TT", _("Tabletop")),
     ]
 
     FSK = [
-        (0, "ab 0"),
-        (6, "ab 6"),
-        (12, "ab 12"),
-        (16, "ab 16"),
-        (18, "ab 18"),
+        (0, _("0 and above")),
+        (6, _("6 and above")),
+        (12, _("12 and above")),
+        (16, _("16 and above")),
+        (18, _("18 and above")),
     ]
 
     OPERATIONSYSTEMS = [
-        ("W", "Windows"),
-        ("L", "Linux"),
-        ("M", "Macos"),
-        ("X", "Xbox"),
-        ("P", "Playstation"),
+        ("W", _("Windows")),
+        ("L", _("Linux")),
+        ("M", _("MacOS")),
+        ("X", _("Xbox")),
+        ("P", _("PlayStation")),
     ]
 
     name = models.CharField(max_length=100)
@@ -81,23 +82,23 @@ class GameImage(models.Model):
     caption = models.CharField(max_length=100, blank=True)
 
     def __str__(self):
-        return f"Bild für {self.game.name}"
+        return _("Image for %(game_name)s") % {"game_name": self.game.name}
 
 
 class Review(models.Model):
     STARS = [
-        (1, "1 Star"),
-        (2, "2 Stars"),
-        (3, "3 Stars"),
-        (4, "4 Stars"),
-        (5, "5 Stars"),
+        (1, _("1 Star")),
+        (2, _("2 Stars")),
+        (3, _("3 Stars")),
+        (4, _("4 Stars")),
+        (5, _("5 Stars")),
     ]
 
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     stars = models.IntegerField(
         choices=STARS,
-        default= 3
+        default=3,
     )
     text = models.TextField(max_length=1000)
     created_at = models.DateTimeField(auto_now_add=True)

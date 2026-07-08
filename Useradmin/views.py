@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
+from django.utils.translation import gettext as _
 from django.views import generic
 
 from .forms import MySignUpForm
@@ -16,8 +17,8 @@ class MySignUpView(generic.CreateView):
 
         messages.success(
             self.request,
-            "Dein Account wurde erstellt. "
-            "Dein Accountname lautet: " + self.object.username,
+            _("Your account has been created. Your account name is: %(username)s")
+            % {"username": self.object.username},
         )
 
         return response
