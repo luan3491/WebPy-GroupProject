@@ -12,6 +12,7 @@ class MyUser(AbstractUser):
     biography = models.TextField(blank=True)
     profile_picture = models.ImageField(
         upload_to="profile_pictures/",
+        default="profile_pictures/Profile-PlaceHolder.png",
         blank=True,
         null=True,
     )

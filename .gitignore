@@ -4,3 +4,6 @@ __pycache__
 /db.sqlite3
 db.sqlite3
 /media/*
+!/media/profile_pictures/
+/media/profile_pictures/*
+!/media/profile_pictures/Profile-PlaceHolder.png

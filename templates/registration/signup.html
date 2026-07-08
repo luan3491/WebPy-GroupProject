@@ -7,29 +7,78 @@
 
 {% block content %}
 
-<h1>{% trans "Signup" %}</h1>
+<section class="auth-page auth-page--signup">
+    <h1>{% trans "Signup" %}</h1>
 
-<p>
-{% blocktrans %}
-Your display name will automatically generate a unique account name with four digits.
-{% endblocktrans %}
-</p>
+    <p>
+    {% blocktrans %}
+    Your display name will automatically generate a unique account name with four digits.
+    {% endblocktrans %}
+    </p>
 
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
 
-    <button type="submit">
-        {% trans "Signup" %}
-    </button>
-</form>
+        <div class="auth-field">
+            <label for="{{ form.display_name.id_for_label }}">{{ form.display_name.label }}</label>
+            {{ form.display_name }}
+            {{ form.display_name.errors }}
+        </div>
 
-<p>
-{% trans "Already registered?" %}
+        <div class="auth-field">
+            <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+            {{ form.email }}
+            {{ form.email.errors }}
+        </div>
 
-<a href="{% url 'login' %}">
-    {% trans "Login" %}
-</a>
-</p>
+        <div class="auth-field">
+            <label for="{{ form.biography.id_for_label }}">{{ form.biography.label }}</label>
+            {{ form.biography }}
+            {{ form.biography.errors }}
+        </div>
+
+        <div class="auth-field">
+            <label for="{{ form.profile_picture.id_for_label }}">{{ form.profile_picture.label }}</label>
+            {{ form.profile_picture }}
+            {{ form.profile_picture.errors }}
+        </div>
+
+        <div class="auth-field">
+            <div class="auth-label-row">
+                <div class="auth-help-tooltip">
+                    <button class="auth-help-icon" type="button" title="{{ form.password1.help_text|striptags }}">
+                        i
+                    </button>
+                    <div class="auth-help-content">
+                        {{ form.password1.help_text|safe }}
+                    </div>
+                </div>
+
+                <label for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
+            </div>
+            {{ form.password1 }}
+            {{ form.password1.errors }}
+        </div>
+
+        <div class="auth-field">
+            <label for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>
+            {{ form.password2 }}
+            {{ form.password2.errors }}
+        </div>
+
+        <button type="submit">
+            {% trans "Signup" %}
+        </button>
+    </form>
+
+    <p>
+    {% trans "Already registered?" %}
+
+    <a href="{% url 'login' %}">
+        {% trans "Login" %}
+    </a>
+    </p>
+</section>
 
 {% endblock %}

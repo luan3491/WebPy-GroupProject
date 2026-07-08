@@ -10,57 +10,8 @@
 
 {% if user.is_authenticated %}
 
-<nav class="navbar">
-    <div class="navbar--left-section">
-
-        <a class="btn btn--secondary" href="{% url 'home' %}">
-            {% trans "Home" %}
-        </a>
-
-        {% if user.user_type == "CU" %}
-        <a class="btn btn--secondary" href="{% url 'game_list' %}">
-            {% trans "Library" %}
-        </a>
-        {% endif %}
-
-        {% if user.user_type == "CS" %}
-        <a class="btn btn--secondary" href="{% url 'cs_page' %}">
-            {% trans "CS Page" %}
-        </a>
-        {% endif %}
-    </div>
-
-    <div class="navbar--right-section">
-        <div>
-            {% blocktrans with name=user.display_name %}
-            Hello {{ name }}!
-            {% endblocktrans %}
-
-            <form class="form-inline" method="post" action="{% url 'logout' %}">
-                {% csrf_token %}
-                <button type="submit">
-                    {% trans "Logout" %}
-                </button>
-            </form>
-        </div>
-    </div>
-
-</nav>
-
 <section class="container">
     <h1>{% trans "Shop" %}</h1>
-
-    <form method="get" action="{% url 'home' %}">
-        {{ search_form.as_p }}
-
-        <button type="submit">
-            {% trans "Search" %}
-        </button>
-
-        <a class="btn btn--secondary" href="{% url 'home' %}">
-            {% trans "Reset" %}
-        </a>
-    </form>
 
     <div class="game-list">
         {% for game in all_the_games %}
@@ -98,9 +49,21 @@
 </section>
 
 {% else %}
-<p>{% trans "You are not logged in." %}</p>
-<p><a href="{% url 'login' %}"> {% trans "Login" %} </a></p>
-<p><a href="{% url 'signup' %}"> {% trans "Signup" %} </a></p>
+<section class="guest-home">
+    <h1>{% trans "Shop" %}</h1>
+
+    <p>{% trans "You are not logged in." %}</p>
+
+    <div class="guest-home-actions">
+        <a class="btn" href="{% url 'login' %}">
+            {% trans "Login" %}
+        </a>
+
+        <a class="btn btn--secondary" href="{% url 'signup' %}">
+            {% trans "Signup" %}
+        </a>
+    </div>
+</section>
 {% endif %}
 
 {% endblock %}

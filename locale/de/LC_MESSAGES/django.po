@@ -209,6 +209,19 @@ msgstr "Dein Account wurde erstellt. Dein Accountname lautet: %(username)s"
 msgid "Base Title"
 msgstr "Basistitel"
 
+#: .\templates\base.html
+#, python-format
+msgid "Hello %(name)s!"
+msgstr "Hallo %(name)s!"
+
+#: .\templates\base.html
+msgid "Change language"
+msgstr "Sprache ändern"
+
+#: .\templates\base.html
+msgid "Profile menu"
+msgstr "Profilmenü"
+
 #: .\templates\base.html:68
 msgid "Current language"
 msgstr "Aktuelle Sprache"

@@ -8,7 +8,7 @@
     <link
       rel="stylesheet"
       type="text/css"
-      href="{% static 'css/homepage.css' %}"
+      href="{% static 'css/style.css' %}"
     />
 
     {% block css %}{% endblock %}
@@ -37,36 +37,145 @@
         border-bottom: 1px solid #444;
       }
 
-      .language-form{
-        float:right;
-      }
     </style>
   </head>
 
   <body>
 
-    <form class="language-form"
-          action="{% url 'set_language' %}"
-          method="post">
-        {% csrf_token %}
-        <input name="next" type="hidden" value="{{ request.get_full_path }}">
+    <header class="site-header {% if user.is_authenticated %}site-header--authenticated{% else %}site-header--guest{% endif %}">
+      <div class="site-header__brand">
+        {% if user.is_authenticated %}
+          <a class="site-header__brand-link" href="{% url 'home' %}">GamesShop</a>
 
-        <select name="language" onchange="this.form.submit()">
-            <option value="en"
-                {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>
+          {% if user.user_type == "CU" %}
+            <span class="site-header__brand-separator">|</span>
+
+            <a class="site-header__brand-link site-header__brand-link--secondary" href="{% url 'game_list' %}">
+              {% trans "Library" %}
+            </a>
+          {% endif %}
+
+          {% if user.user_type == "CS" %}
+            <span class="site-header__brand-separator">|</span>
+
+            <a class="site-header__brand-link site-header__brand-link--secondary" href="{% url 'cs_page' %}">
+              {% trans "CS Page" %}
+            </a>
+          {% endif %}
+        {% else %}
+          <span>GamesShop</span>
+        {% endif %}
+      </div>
+
+      {% if user.is_authenticated %}
+        <form class="site-header__search" method="get" action="{% url 'home' %}">
+          <select name="stars" aria-label="{% trans 'Rating' %}">
+            <option value="" {% if not request.GET.stars %}selected{% endif %}>
+              {% trans "All ratings" %}
+            </option>
+            <option value="1" {% if request.GET.stars == "1" %}selected{% endif %}>
+              {% trans "1 Star and above" %}
+            </option>
+            <option value="2" {% if request.GET.stars == "2" %}selected{% endif %}>
+              {% trans "2 Stars and above" %}
+            </option>
+            <option value="3" {% if request.GET.stars == "3" %}selected{% endif %}>
+              {% trans "3 Stars and above" %}
+            </option>
+            <option value="4" {% if request.GET.stars == "4" %}selected{% endif %}>
+              {% trans "4 Stars and above" %}
+            </option>
+            <option value="5" {% if request.GET.stars == "5" %}selected{% endif %}>
+              {% trans "5 Stars" %}
+            </option>
+          </select>
+
+          <input
+            type="text"
+            name="search_text"
+            value="{{ request.GET.search_text }}"
+            placeholder="{% trans 'Search text' %}"
+          >
+
+          <button class="btn" type="submit">
+            {% trans "Search" %}
+          </button>
+        </form>
+      {% endif %}
+
+      <div class="site-header__right">
+        {% if user.is_authenticated %}
+          <div class="site-header__user">
+            <span>
+              {% blocktrans with name=user.display_name %}Hello {{ name }}!{% endblocktrans %}
+            </span>
+
+            <details class="site-header__profile-menu">
+              <summary aria-label="{% trans 'Profile menu' %}">
+                {% if user.profile_picture %}
+                  <img
+                    class="site-header__avatar"
+                    src="{{ user.profile_picture.url }}"
+                    alt="{% trans 'Profile picture' %}"
+                  >
+                {% else %}
+                  <span class="site-header__avatar site-header__avatar-placeholder">
+                    {{ user.display_name|slice:":1" }}
+                  </span>
+                {% endif %}
+              </summary>
+
+              <div class="site-header__menu-content">
+                <form class="site-header__language" action="{% url 'set_language' %}" method="post">
+                  {% csrf_token %}
+                  <input name="next" type="hidden" value="{{ request.get_full_path }}">
+
+                  <select name="language">
+                    <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>
+                      English
+                    </option>
+
+                    <option value="de" {% if LANGUAGE_CODE == 'de' %}selected{% endif %}>
+                      Deutsch
+                    </option>
+                  </select>
+
+                  <button class="btn btn--secondary" type="submit">
+                    {% trans "Change language" %}
+                  </button>
+                </form>
+
+                <form class="site-header__logout" method="post" action="{% url 'logout' %}">
+                  {% csrf_token %}
+                  <button class="btn btn--secondary" type="submit">
+                    {% trans "Logout" %}
+                  </button>
+                </form>
+              </div>
+            </details>
+          </div>
+        {% else %}
+          <form class="site-header__language" action="{% url 'set_language' %}" method="post">
+            {% csrf_token %}
+            <input name="next" type="hidden" value="{{ request.get_full_path }}">
+
+            <select name="language">
+              <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>
                 English
-            </option>
+              </option>
 
-            <option value="de"
-                {% if LANGUAGE_CODE == 'de' %}selected{% endif %}>
+              <option value="de" {% if LANGUAGE_CODE == 'de' %}selected{% endif %}>
                 Deutsch
-            </option>
-        </select>
-    </form>
+              </option>
+            </select>
 
-    <p>
-        {% trans "Current language" %}: {{ LANGUAGE_CODE }}
-    </p>
+            <button class="btn btn--secondary" type="submit">
+              {% trans "Change language" %}
+            </button>
+          </form>
+        {% endif %}
+      </div>
+    </header>
 
     <div class="page-container">
       {% block content %}

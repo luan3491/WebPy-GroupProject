@@ -7,38 +7,40 @@
 
 {% block content %}
 
-<h1>{% trans "Login" %}</h1>
+<section class="auth-page">
+    <h1>{% trans "Login" %}</h1>
 
-{% if messages %}
-    {% for message in messages %}
-        <p>{{ message }}</p>
-    {% endfor %}
-{% endif %}
-
-<p>
-    {% trans "Log in with your account." %}
-</p>
-
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-
-    {% if next %}
-        <input type="hidden" name="next" value="{{ next }}">
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
     {% endif %}
 
-    <button type="submit">
-        {% trans "Login" %}
-    </button>
+    <p>
+        {% trans "Log in with your account." %}
+    </p>
 
-</form>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
 
-<p>
-    {% trans "Don't have an account?" %}
+        {% if next %}
+            <input type="hidden" name="next" value="{{ next }}">
+        {% endif %}
 
-    <a href="{% url 'signup' %}">
-        {% trans "Signup" %}
-    </a>
-</p>
+        <button type="submit">
+            {% trans "Login" %}
+        </button>
+
+    </form>
+
+    <p>
+        {% trans "Don't have an account?" %}
+
+        <a href="{% url 'signup' %}">
+            {% trans "Signup" %}
+        </a>
+    </p>
+</section>
 
 {% endblock %}
