@@ -1,7 +1,9 @@
 import random
 
-from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.utils.translation import gettext_lazy as _
+
 from .models import MyUser
 
 
@@ -15,6 +17,12 @@ class MySignUpForm(UserCreationForm):
             "biography",
             "profile_picture",
         )
+        labels = {
+            "display_name": _("Display name"),
+            "email": _("Email address"),
+            "biography": _("Biography"),
+            "profile_picture": _("Profile picture"),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -52,7 +60,7 @@ class MySignUpForm(UserCreationForm):
                 return account_name
 
         raise ValueError(
-            "Für diesen Anzeigenamen konnte kein freier Accountname erstellt werden."
+            _("No free account name could be created for this display name.")
         )
 
 
@@ -65,3 +73,9 @@ class UserForm(forms.ModelForm):
             "biography",
             "profile_picture",
         ]
+        labels = {
+            "display_name": _("Display name"),
+            "email": _("Email address"),
+            "biography": _("Biography"),
+            "profile_picture": _("Profile picture"),
+        }

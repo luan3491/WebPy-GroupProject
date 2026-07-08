@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-07 23:40+0200\n"
+"POT-Creation-Date: 2026-07-08 02:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,31 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\Useradmin\forms.py:21 .\Useradmin\forms.py:77
+msgid "Display name"
+msgstr "Anzeigename"
+
+#: .\Useradmin\forms.py:22 .\Useradmin\forms.py:78
+msgid "Email address"
+msgstr "E-Mail-Adresse"
+
+#: .\Useradmin\forms.py:23 .\Useradmin\forms.py:79
+msgid "Biography"
+msgstr "Biografie"
+
+#: .\Useradmin\forms.py:24 .\Useradmin\forms.py:80
+msgid "Profile picture"
+msgstr "Profilbild"
+
+#: .\Useradmin\forms.py:63
+msgid "No free account name could be created for this display name."
+msgstr "Für diesen Anzeigenamen konnte kein freier Accountname erstellt werden."
+
+#: .\Useradmin\views.py:20
+#, python-format
+msgid "Your account has been created. Your account name is: %(username)s"
+msgstr "Dein Account wurde erstellt. Dein Accountname lautet: %(username)s"
 
 #: .\templates\base.html:16
 msgid "Base Title"
@@ -76,7 +101,7 @@ msgstr "Alle Berichte"
 msgid "reported"
 msgstr "gemeldet"
 
-#: .\templates\cs_game_detail.html:6 .\templates\gamepage.html:63
+#: .\templates\cs_game_detail.html:6 .\templates\gamepage.html:71
 #, fuzzy
 #| msgid "Edit"
 msgid "Edit Game"
@@ -124,67 +149,71 @@ msgstr "Genre"
 msgid "Age Rating"
 msgstr "Altersfreigabe"
 
-#: .\templates\gamepage.html:58
+#: .\templates\gamepage.html:67
 msgid "Download PDF"
 msgstr "PDF herunterladen"
 
-#: .\templates\gamepage.html:77
+#: .\templates\gamepage.html:85
 msgid "Add to Cart"
 msgstr "in den Warenkorb legen"
 
-#: .\templates\gamepage.html:85
+#: .\templates\gamepage.html:93
 msgid "Reviews"
 msgstr "Bewertung"
 
-#: .\templates\gamepage.html:106
+#: .\templates\gamepage.html:116
 msgid "Was this review helpful?"
 msgstr "War diese Bewertung hilfreich?"
 
-#: .\templates\gamepage.html:111
+#: .\templates\gamepage.html:121
 msgid "Yes"
 msgstr "Ja"
 
-#: .\templates\gamepage.html:117
+#: .\templates\gamepage.html:127
 msgid "No"
 msgstr "Nein"
 
-#: .\templates\gamepage.html:123
+#: .\templates\gamepage.html:133
 msgid "Funny"
 msgstr "Lustig"
 
-#: .\templates\gamepage.html:134
+#: .\templates\gamepage.html:142
 msgid "Report"
 msgstr "Melden"
 
-#: .\templates\gamepage.html:146
+#: .\templates\gamepage.html:152
 msgid "Edit Review"
 msgstr "Bewertung bearbeiten"
 
-#: .\templates\gamepage.html:154 .\templates\gamepage.html:182
+#: .\templates\gamepage.html:158 .\templates\gamepage.html:195
 msgid "Delete Review"
 msgstr "Bewertung löschen"
 
-#: .\templates\gamepage.html:169 .\templates\gamepage.html:258
+#: .\templates\gamepage.html:169
+msgid "Stars"
+msgstr ""
+
+#: .\templates\gamepage.html:184 .\templates\gamepage.html:262
 msgid "Save Changes"
 msgstr "Änderungen speichern"
 
-#: .\templates\gamepage.html:214
+#: .\templates\gamepage.html:226
 msgid "Up"
 msgstr "Up"
 
-#: .\templates\gamepage.html:220
+#: .\templates\gamepage.html:232
 msgid "Down"
 msgstr "Down"
 
-#: .\templates\gamepage.html:231
+#: .\templates\gamepage.html:241
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: .\templates\gamepage.html:241 .\templates\gamepage.html:271
+#: .\templates\gamepage.html:249 .\templates\gamepage.html:273
 msgid "Delete"
 msgstr "Löschen"
 
-#: .\templates\gamepage.html:286
+#: .\templates\gamepage.html:288
 msgid "Save Comment"
 msgstr "Kommentar speichern"
 
@@ -196,19 +225,19 @@ msgstr "Bewertung speichern"
 msgid "Homepage"
 msgstr "Startseite"
 
-#: .\templates\homepage.html:18
+#: .\templates\homepage.html:17
 msgid "Home"
 msgstr "Home"
 
-#: .\templates\homepage.html:24 .\templates\paymentterminal.html:19
+#: .\templates\homepage.html:22 .\templates\paymentterminal.html:19
 msgid "Library"
 msgstr "Bibliothek"
 
-#: .\templates\homepage.html:31
+#: .\templates\homepage.html:28
 msgid "CS Page"
 msgstr ""
 
-#: .\templates\homepage.html:38
+#: .\templates\homepage.html:35
 #, python-format
 msgid ""
 "\n"
@@ -219,30 +248,30 @@ msgstr ""
 "            Hallo %(name)s!\n"
 "            "
 
-#: .\templates\homepage.html:47
+#: .\templates\homepage.html:42
 msgid "Logout"
 msgstr "Abmelden"
 
-#: .\templates\homepage.html:56
+#: .\templates\homepage.html:51
 msgid "Shop"
 msgstr "Shop"
 
-#: .\templates\homepage.html:73
+#: .\templates\homepage.html:75
 msgid "No image available"
 msgstr "Kein Bild verfügbar"
 
-#: .\templates\homepage.html:88
+#: .\templates\homepage.html:101
 msgid "You are not logged in."
 msgstr "Sie sind nicht angemeldet."
 
-#: .\templates\homepage.html:89 .\templates\registration\login.html:5
+#: .\templates\homepage.html:102 .\templates\registration\login.html:5
 #: .\templates\registration\login.html:10
 #: .\templates\registration\login.html:31
 #: .\templates\registration\signup.html:31
 msgid "Login"
 msgstr "Anmelden"
 
-#: .\templates\homepage.html:90 .\templates\registration\login.html:40
+#: .\templates\homepage.html:103 .\templates\registration\login.html:40
 #: .\templates\registration\signup.html:5
 #: .\templates\registration\signup.html:10
 #: .\templates\registration\signup.html:23
