@@ -79,3 +79,33 @@ class UserForm(forms.ModelForm):
             "biography": _("Biography"),
             "profile_picture": _("Profile picture"),
         }
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = MyUser
+        fields = [
+            "display_name",
+            "biography",
+            "profile_picture",
+        ]
+        labels = {
+            "display_name": _("Display name"),
+            "biography": _("Biography"),
+            "profile_picture": _("Profile picture"),
+        }
+        widgets = {
+            "profile_picture": forms.FileInput(attrs={"accept": "image/*"}),
+        }
+
+    def save(self, commit=True):
+        myuser = super().save(commit=False)
+
+        if not myuser.profile_picture:
+            myuser.profile_picture = MyUser._meta.get_field("profile_picture").default
+
+        if commit:
+            myuser.save()
+            self.save_m2m()
+
+        return myuser

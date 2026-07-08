@@ -205,6 +205,14 @@ msgstr "Für diesen Anzeigenamen konnte kein freier Accountname erstellt werden.
 msgid "Your account has been created. Your account name is: %(username)s"
 msgstr "Dein Account wurde erstellt. Dein Accountname lautet: %(username)s"
 
+#: .\Useradmin\views.py
+msgid "Your profile has been updated."
+msgstr "Dein Profil wurde aktualisiert."
+
+#: .\Useradmin\views.py
+msgid "Your password has been changed."
+msgstr "Dein Passwort wurde geändert."
+
 #: .\templates\base.html:16
 msgid "Base Title"
 msgstr "Basistitel"
@@ -221,6 +229,10 @@ msgstr "Sprache ändern"
 #: .\templates\base.html
 msgid "Profile menu"
 msgstr "Profilmenü"
+
+#: .\templates\base.html
+msgid "Edit Profile"
+msgstr "Profil bearbeiten"
 
 #: .\templates\base.html:68
 msgid "Current language"
@@ -534,3 +546,31 @@ msgstr ""
 #: .\templates\registration\signup.html:28
 msgid "Already registered?"
 msgstr "Bereits registriert?"
+
+#: .\templates\registration\profile_settings.html
+msgid "Profile Settings"
+msgstr "Profil-Einstellungen"
+
+#: .\templates\registration\profile_settings.html
+msgid "Account name"
+msgstr "Accountname"
+
+#: .\templates\registration\profile_settings.html
+msgid "Your account name cannot be changed."
+msgstr "Dein Accountname kann nicht geändert werden."
+
+#: .\templates\registration\profile_settings.html
+msgid "Current profile picture"
+msgstr "Aktuelles Profilbild"
+
+#: .\templates\registration\profile_settings.html
+msgid "Choose a new image if you want to replace your current profile picture."
+msgstr "Wähle ein neues Bild aus, wenn du dein aktuelles Profilbild ersetzen möchtest."
+
+#: .\templates\registration\profile_settings.html
+msgid "Save Profile"
+msgstr "Profil speichern"
+
+#: .\templates\registration\profile_settings.html
+msgid "Change Password"
+msgstr "Passwort ändern"
