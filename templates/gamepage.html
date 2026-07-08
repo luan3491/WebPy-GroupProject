@@ -53,6 +53,15 @@
                 <p><strong>{% trans "Genre" %}:</strong> {{ that_one_game.get_genre_display }}</p>
                 <p><strong>{% trans "Age Rating" %}:</strong> {{ that_one_game.get_fsk_display }}</p>
 
+                {% if that_one_game.average_stars %}
+                <p>
+                    <strong>Rating:</strong>
+                    {{ that_one_game.average_stars|floatformat:"0" }} / 5 ⭐
+                </p>
+                {% else %}
+                <p><strong>Rating:</strong> No rating yet</p>
+                {% endif %}
+
                 <p>
                     <a class="btn btn--secondary" href="{% url 'game_pdf' that_one_game.id %}">
                         {% trans "Download PDF" %}

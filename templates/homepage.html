@@ -13,23 +13,20 @@
 <nav class="navbar">
     <div class="navbar--left-section">
 
-        <a class="btn btn--secondary"
-           href="{% url 'home' %}">
+        <a class="btn btn--secondary" href="{% url 'home' %}">
             {% trans "Home" %}
         </a>
 
         {% if user.user_type == "CU" %}
-            <a class="btn btn--secondary"
-               href="{% url 'game_list' %}">
-                {% trans "Library" %}
-            </a>
+        <a class="btn btn--secondary" href="{% url 'game_list' %}">
+            {% trans "Library" %}
+        </a>
         {% endif %}
 
         {% if user.user_type == "CS" %}
-            <a class="btn btn--secondary"
-               href="{% url 'cs_page' %}">
-                {% trans "CS Page" %}
-            </a>
+        <a class="btn btn--secondary" href="{% url 'cs_page' %}">
+            {% trans "CS Page" %}
+        </a>
         {% endif %}
     </div>
 
@@ -39,9 +36,7 @@
             Hello {{ name }}!
             {% endblocktrans %}
 
-            <form class="form-inline"
-                  method="post"
-                  action="{% url 'logout' %}">
+            <form class="form-inline" method="post" action="{% url 'logout' %}">
                 {% csrf_token %}
                 <button type="submit">
                     {% trans "Logout" %}
@@ -55,39 +50,57 @@
 <section class="container">
     <h1>{% trans "Shop" %}</h1>
 
+    <form method="get" action="{% url 'home' %}">
+        {{ search_form.as_p }}
+
+        <button type="submit">
+            Search
+        </button>
+
+        <a class="btn btn--secondary" href="{% url 'home' %}">
+            Reset
+        </a>
+    </form>
+
     <div class="game-list">
         {% for game in all_the_games %}
-            <div class="game">
-                {% with first_image=game.images.first %}
-                    <a href="{% url 'game_detail' game.id %}">
-                        {% if first_image %}
+        <div class="game">
+            {% with first_image=game.images.first %}
+            <a href="{% url 'game_detail' game.id %}">
+                {% if first_image %}
 
-                            <img src="{{ first_image.image.url }}"
-                                 alt="{{ game.name }}"
-                                 width="200"
-                                 height="200">
+                <img src="{{ first_image.image.url }}" alt="{{ game.name }}" width="200" height="200">
 
-                        {% else %}
-                            <div class="image-placeholder"
-                                 role="img"
-                                 aria-label="{% trans 'No image available' %}">
-                            </div>
-                        {% endif %}
-                    </a>
+                {% else %}
+                <div class="image-placeholder" role="img" aria-label="{% trans 'No image available' %}">
+                </div>
+                {% endif %}
+            </a>
 
-                {% endwith %}
+            {% endwith %}
 
-                <h3>{{ game.name }}</h3>
-                <p>{{ game.price }} €</p>
-            </div>
+            <h3>{{ game.name }}</h3>
+            <p>{{ game.price }} €</p>
+
+            {% if game.average_stars %}
+            <p>
+                Rating:
+                {{ game.average_stars|floatformat:"0" }} / 5 ⭐
+            </p>
+            {% else %}
+            <p>No Rating yet</p>
+            {% endif %}
+        </div>
+        {% empty %}
+        <p>No games found.</p>
         {% endfor %}
     </div>
 </section>
 
 {% else %}
-    <p>{% trans "You are not logged in." %}</p>
-    <p><a href="{% url 'login' %}"> {% trans "Login" %} </a></p>
-    <p><a href="{% url 'signup' %}"> {% trans "Signup" %} </a></p>
+<p>{% trans "You are not logged in." %}</p>
+<p><a href="{% url 'login' %}"> {% trans "Login" %} </a></p>
+<p><a href="{% url 'signup' %}"> {% trans "Signup" %} </a></p>
 {% endif %}
 
 {% endblock %}

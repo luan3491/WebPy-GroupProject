@@ -42,3 +42,23 @@ class ReviewForm(forms.ModelForm):
             "stars": forms.Select(choices=Review.STARS),
             "text": forms.Textarea(attrs={"rows": 5}),
         }
+
+
+class GameSearchForm(forms.Form):
+    search_text = forms.CharField(
+        required=False,
+        label="Suchtext",
+    )
+
+    stars = forms.ChoiceField(
+        required=False,
+        label="Rating",
+        choices=[
+            ("", "All Ratings"),
+            ("1", "1 Star and above"),
+            ("2", "2 Stars and above"),
+            ("3", "3 Stars and above"),
+            ("4", "4 Stars and above"),
+            ("5", "5 Stars"),
+        ],
+    )
