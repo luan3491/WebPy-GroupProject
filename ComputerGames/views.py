@@ -170,6 +170,29 @@ def delete_comment_cs(request, comment_id):
 
 
 @login_required
+def hide_comment_cs(request, comment_id):
+    comment = get_object_or_404(ReviewComment, pk=comment_id)
+    if request.user.user_type == "CS":
+        game_id = comment.review.game.id
+        comment.hidden = True
+        comment.save()
+        return redirect("game_detail", pk=game_id)
+    return redirect("game_detail", pk=comment.review.game.id)
+
+
+
+@login_required
+def reveal_comment_cs(request, comment_id):
+    comment = get_object_or_404(ReviewComment, pk=comment_id)
+    if request.user.user_type == "CS":
+        game_id = comment.review.game.id
+        comment.hidden = False
+        comment.save()
+        return redirect("game_detail", pk=game_id)
+    return redirect("game_detail", pk=comment.review.game.id)
+
+
+@login_required
 def edit_review(request, review_id):
     review = get_object_or_404(Review, pk=review_id)
 
@@ -205,6 +228,30 @@ def delete_review_cs(request, review_id):
         review.delete()
         return redirect("game_detail", pk=game_id)
     return redirect("game_detail", pk=review.game.id)
+
+
+@login_required
+def hide_review_cs(request, review_id):
+    review = get_object_or_404(Review, pk=review_id)
+    if request.user.user_type == "CS":
+        game_id = review.game.id
+        review.hidden = True
+        review.save()
+        return redirect("game_detail", pk=game_id)
+    return redirect("game_detail", pk=review.game.id)
+
+
+
+@login_required
+def reveal_review_cs(request, review_id):
+    review = get_object_or_404(Review, pk=review_id)
+    if request.user.user_type == "CS":
+        game_id = review.game.id
+        review.hidden = False
+        review.save()
+        return redirect("game_detail", pk=game_id)
+    return redirect("game_detail", pk=review.game.id)
+
 
 
 @login_required

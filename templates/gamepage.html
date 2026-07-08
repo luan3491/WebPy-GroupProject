@@ -96,6 +96,7 @@
         <h2>{% trans "Reviews" %}</h2>
 
         {% for review in that_one_game.review_set.all %}
+            {% if not review.hidden or user.user_type == "CS" %}
         <div class="review-box">
             <div class="review-header">
 
@@ -198,13 +199,28 @@
                     {% trans "Delete Review" %}
                 </button>
             </form>
-
+                {% if not review.hidden %}
+                    <form method="post" action="{% url 'hide_review_cs' review.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button class="btn-delete" type="submit">
+                            {% trans "Hide Review" %}
+                        </button>
+                    </form>
+                {% else %}
+                    <form method="post" action="{% url 'reveal_review_cs' review.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button class="btn-delete" type="submit">
+                            {% trans "Reveal Review" %}
+                        </button>
+                    </form>
+                {% endif %}
             {% endif %}
 
             <hr>
 
             <div class="comments">
                 {% for comment in review.comments.all %}
+                    {% if not comment.hidden or user.user_type == "CS" %}
                 <div class="comment">
 
                     <div class="comment-header">
@@ -276,9 +292,24 @@
                             {% trans "Delete" %}
                         </button>
                     </form>
+                        {% if not comment.hidden %}
+                        <form method="post" action="{% url 'hide_comment_cs' comment.id %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button class="btn-delete" type="submit">
+                                {% trans "Hide Comment" %}
+                            </button>
+                        </form>
+                    {% else %}
+                        <form method="post" action="{% url 'reveal_comment_cs' comment.id %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button class="btn-delete" type="submit">
+                                {% trans "Reveal Comment" %}
+                            </button>
+                        </form>
+                    {% endif %}
                     {% endif %}
                 </div>
-
+                {% endif %}
                 {% endfor %}
 
                 {% if user.user_type == "CU" %}
@@ -294,6 +325,7 @@
                 {% endif %}
             </div>
         </div>
+            {% endif %}
         {% endfor %}
     </div>
 
