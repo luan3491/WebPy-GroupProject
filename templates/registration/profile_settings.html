@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
+{% trans "Profile Settings" %}
+{% endblock %}
+
+{% block content %}
+
+<section class="auth-page profile-settings">
+    <h1>{% trans "Profile Settings" %}</h1>
+
+    {% if messages %}
+        <div class="auth-messages">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="auth-field">
+        <label for="account-name">{% trans "Account name" %}</label>
+        <input id="account-name" type="text" value="{{ user.username }}" disabled>
+        <p class="profile-settings__note">
+            {% trans "Your account name cannot be changed." %}
+        </p>
+    </div>
+
+    <form class="profile-settings__form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ profile_form.non_field_errors }}
+
+        <div class="auth-field">
+            <label for="{{ profile_form.display_name.id_for_label }}">{{ profile_form.display_name.label }}</label>
+            {{ profile_form.display_name }}
+            {{ profile_form.display_name.errors }}
+        </div>
+
+        <div class="auth-field">
+            <label for="{{ profile_form.biography.id_for_label }}">{{ profile_form.biography.label }}</label>
+            {{ profile_form.biography }}
+            {{ profile_form.biography.errors }}
+        </div>
+
+        <div class="auth-field profile-settings__picture-field">
+            <label for="{{ profile_form.profile_picture.id_for_label }}">{{ profile_form.profile_picture.label }}</label>
+
+            <div class="profile-settings__picture-row">
+                {% if user.profile_picture %}
+                    <img
+                        class="profile-settings__picture-preview"
+                        src="{{ user.profile_picture.url }}"
+                        alt="{% trans 'Current profile picture' %}"
+                    >
+                {% endif %}
+
+                <div class="profile-settings__picture-upload">
+                    <p class="profile-settings__note">
+                        {% trans "Choose a new image if you want to replace your current profile picture." %}
+                    </p>
+                    {{ profile_form.profile_picture }}
+                </div>
+            </div>
+
+            {{ profile_form.profile_picture.errors }}
+        </div>
+
+        <button type="submit" name="save_profile">
+            {% trans "Save Profile" %}
+        </button>
+    </form>
+
+    <hr class="profile-settings__divider">
+
+    <h2>{% trans "Change Password" %}</h2>
+
+    <form class="profile-settings__form" method="post">
+        {% csrf_token %}
+        {{ password_form.non_field_errors }}
+
+        <div class="auth-field">
+            <label for="{{ password_form.old_password.id_for_label }}">{{ password_form.old_password.label }}</label>
+            {{ password_form.old_password }}
+            {{ password_form.old_password.errors }}
+        </div>
+
+        <div class="auth-field">
+            <div class="auth-label-row">
+                <div class="auth-help-tooltip">
+                    <button class="auth-help-icon" type="button" title="{{ password_form.new_password1.help_text|striptags }}">
+                        i
+                    </button>
+                    <div class="auth-help-content">
+                        {{ password_form.new_password1.help_text|safe }}
+                    </div>
+                </div>
+
+                <label for="{{ password_form.new_password1.id_for_label }}">{{ password_form.new_password1.label }}</label>
+            </div>
+            {{ password_form.new_password1 }}
+            {{ password_form.new_password1.errors }}
+        </div>
+
+        <div class="auth-field">
+            <label for="{{ password_form.new_password2.id_for_label }}">{{ password_form.new_password2.label }}</label>
+            {{ password_form.new_password2 }}
+            {{ password_form.new_password2.errors }}
+        </div>
+
+        <button type="submit" name="change_password">
+            {% trans "Change Password" %}
+        </button>
+    </form>
+</section>
+
+{% endblock %}
