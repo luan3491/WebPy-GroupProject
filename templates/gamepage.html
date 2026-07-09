@@ -1,37 +1,10 @@
 {% extends 'base.html' %}
-{% load static %}
 {% load i18n %}
-
-{% block css %}
-<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-{% endblock %}
 
 {% block title %}{% trans "Game Information" %}{% endblock %}
 
 {% block content %}
 <section class="container">
-    <nav class="navbar">
-        <div class="navbar--left-section">
-            {% if user.user_type == "CU" %}
-            <a class="btn" href="{% url 'game_list' %}">
-                {% trans "Back to Library" %}
-            </a>
-            {% endif %}
-
-            <a class="btn" href="{% url 'home' %}">
-                {% trans "Back to Shop" %}
-            </a>
-        </div>
-
-        {% if user.user_type == "CU" %}
-        <div class="navbar--right-section">
-            <a class="btn" href="{% url 'cart' %}">
-                {% trans "Shopping Cart" %}
-            </a>
-        </div>
-        {% endif %}
-    </nav>
-
     <div class="game-header">
 
         <div class="game-title">
@@ -353,7 +326,7 @@
 
     {% if user.is_authenticated and user.user_type == "CU" %}
     {% if not user_review %}
-    <form method="post">
+    <form class="review-create-form" method="post">
         {% csrf_token %}
 
         {{ review_form.as_p }}
