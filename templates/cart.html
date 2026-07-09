@@ -7,65 +7,85 @@
 
 {% block content %}
 
-<section class="container">
-
-    <a class="btn" href="{% url 'home' %}">
-        {% trans "Back to Shop" %}
-    </a>
-
+<section class="container cart-page">
     <h2>{% trans "Shopping Cart" %}</h2>
 
     {% if shopping_cart_is_empty %}
 
-        <p>{% trans "Your shopping cart is empty." %}</p>
+        <p class="cart-empty">{% trans "Your shopping cart is empty." %}</p>
 
     {% else %}
 
+        <div class="cart-items">
         {% for item in shopping_cart_items %}
 
-        <div class="game">
-            <h3>{{ item.product_name }}</h3>
-
-            <p>
-                <strong>{% trans "Price:" %}</strong>
-                {{ item.price }} €
-            </p>
-
-            <p>
-                <strong>{% trans "Quantity:" %}</strong>
-                {{ item.quantity }}
-            </p>
-
-            <div class="cart-buttons">
-
-                <form method="post"
-                      action="{% url 'change_quantity' item.id 'minus' %}">
-                    {% csrf_token %}
-                    <button class="btn" type="submit">−</button>
-                </form>
-
-                <form method="post"
-                      action="{% url 'change_quantity' item.id 'plus' %}">
-                    {% csrf_token %}
-                    <button class="btn" type="submit">+</button>
-                </form>
-
+        <article class="cart-item">
+            <div class="cart-item__image">
+                {% if item.game %}
+                    {% with first_image=item.game.images.first %}
+                        {% if first_image %}
+                            <img src="{{ first_image.image.url }}" alt="{{ item.product_name }}">
+                        {% else %}
+                            <div class="cart-item__image-placeholder" role="img" aria-label="{% trans 'No image available' %}">
+                                {% trans "No image available" %}
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+                {% else %}
+                    <div class="cart-item__image-placeholder" role="img" aria-label="{% trans 'No image available' %}">
+                        {% trans "No image available" %}
+                    </div>
+                {% endif %}
             </div>
 
-        </div>
+            <div class="cart-item__details">
+                <h3>{{ item.product_name }}</h3>
+
+                <p class="cart-item__price">
+                    <strong>{% trans "Price:" %}</strong>
+                    {{ item.price }} €
+                </p>
+
+                <div class="cart-item__quantity">
+                    <p>
+                        <strong>{% trans "Quantity:" %}</strong>
+                        {{ item.quantity }}
+                    </p>
+
+                    <div class="cart-buttons">
+
+                        <form method="post"
+                              action="{% url 'change_quantity' item.id 'minus' %}">
+                            {% csrf_token %}
+                            <button class="btn" type="submit">−</button>
+                        </form>
+
+                        <form method="post"
+                              action="{% url 'change_quantity' item.id 'plus' %}">
+                            {% csrf_token %}
+                            <button class="btn" type="submit">+</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </article>
 
         {% endfor %}
+        </div>
 
-        <h3>
-            {% trans "Total:" %} {{ total }} €
-        </h3>
+        <div class="cart-summary">
+            <h3>
+                {% trans "Total:" %} {{ total }} €
+            </h3>
 
-        <form method="post">
-            {% csrf_token %}
-            <button class="btn-save" type="submit" name="pay">
-                {% trans "Pay with credit card" %}
-            </button>
-        </form>
+            <form method="post">
+                {% csrf_token %}
+                <button class="btn-save" type="submit" name="pay">
+                    {% trans "Pay with credit card" %}
+                </button>
+            </form>
+        </div>
 
     {% endif %}
 
