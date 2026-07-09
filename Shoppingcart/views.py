@@ -30,6 +30,11 @@ def show_shopping_cart(request):
                 shopping_cart = shopping_carts.first()
                 shopping_cart_is_empty = False
                 shopping_cart_items = ShoppingCartItem.objects.filter(shopping_cart=shopping_cart)
+                game_ids = [item.product_id for item in shopping_cart_items]
+                games = Game.objects.filter(id__in=game_ids).prefetch_related("images")
+                games_by_id = {game.id: game for game in games}
+                for item in shopping_cart_items:
+                    item.game = games_by_id.get(item.product_id)
                 total = shopping_cart.get_total()
         context = {'shopping_cart_is_empty': shopping_cart_is_empty,
                    'shopping_cart_items': shopping_cart_items,
