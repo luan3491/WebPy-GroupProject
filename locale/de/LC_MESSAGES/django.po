@@ -521,8 +521,7 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"    Vielen Dank für deine Bestellung. Du findest das Spiel in deiner "
-"Bibliothek.\n"
+"    Vielen Dank für deine Bestellung. Du findest das Spiel in deiner Bibliothek.\n"
 "    "
 
 #: .\templates\paymentterminal.html:35
