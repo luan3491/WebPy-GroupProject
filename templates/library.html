@@ -7,28 +7,32 @@
 
 {% block content %}
 
-<h2>{% trans "Your games:" %}</h2>
+<section class="library-page">
+    <h1>{% trans "Library" %}</h1>
 
-<ul>
-    {% for game in all_the_games %}
-        <li>
-            <a href="{% url 'game_detail' game.id %}">
-                <b>{{ game.name }}</b>
-            </a>
-            <br>
-            {% with first_image=game.images.first %}
-                {% if first_image %}
-                    <img src="{{ first_image.image.url }}"
-                         alt="{{ game.name }}"
-                         width="300">
-                {% endif %}
-            {% endwith %}
-        </li>
-    {% endfor %}
-</ul>
+    {% if all_the_games %}
+        <div class="library-page__grid">
+            {% for game in all_the_games %}
+                <a class="library-page__game-card" href="{% url 'game_detail' game.id %}">
+                    {% with first_image=game.images.first %}
+                        {% if first_image %}
+                            <img src="{{ first_image.image.url }}" alt="{{ game.name }}">
+                        {% else %}
+                            <span class="library-page__game-placeholder">
+                                {% trans "No image available" %}
+                            </span>
+                        {% endif %}
+                    {% endwith %}
 
-<a href="{% url 'home' %}">
-    {% trans "Back to Shop" %}
-</a>
+                    <span class="library-page__game-title">{{ game.name }}</span>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="library-page__empty">
+            {% trans "This user does not own any games yet." %}
+        </p>
+    {% endif %}
+</section>
 
 {% endblock %}
