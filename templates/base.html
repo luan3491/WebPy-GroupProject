@@ -161,6 +161,12 @@
                 </form>
               </div>
             </details>
+
+            {% if user.user_type == "CU" %}
+              <a class="btn btn--secondary" href="{% url 'cart' %}">
+                {% trans "Shopping Cart" %}
+              </a>
+            {% endif %}
           </div>
         {% else %}
           <form class="site-header__language" action="{% url 'set_language' %}" method="post">
